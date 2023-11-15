@@ -18,7 +18,7 @@ void limparTerm() {  //Limpa o terminal com base no SO
     #endif
 }
 
-char telaLogin() {
+void telaLogin() {
     char usrAdm[30] = "adm";
     char senAdm[30] = "adm123";
     char usuario[30];
@@ -76,7 +76,7 @@ char telaLogin() {
     }
 }
 
-char menuPrincipal() {
+void menuPrincipal() {
     limparTerm();
     printf("\n");
     printf("%s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
