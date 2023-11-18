@@ -18,6 +18,10 @@ void limparTerm() {  //Limpa o terminal com base no SO
     #endif
 }
 
+void linhaVazia(){
+    printf("%s|                                           |%s\n", verde, limparCor);
+}
+
 void telaLogin() {
     char usrAdm[30] = "adm";
     char senAdm[30] = "adm123";
@@ -82,23 +86,23 @@ void menuPrincipal() {
     printf("%s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
     printf("|               MENU PRINCIPAL              |\n");
     printf("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
-    printf("\n");
-    printf("[1] Consulta\n");
-    printf("\n");
-    printf("[2] Gerar relatorio\n");
-    printf("\n");
-    printf("[3] Cadastrar empresa\n");
-    printf("\n");
-    printf("[4] Cadastrar colaborador\n");
-    printf("\n");
-    printf("%s[0] Encerrar sessao\n%s",vermelho, limparCor);
-    printf("\n");
+    linhaVazia();
+    printf("%s|%s [1] Consulta                              %s|%s\n", verde, limparCor, verde, limparCor);
+    linhaVazia();
+    printf("%s|%s [2] Gerar relatorio                       %s|%s\n", verde, limparCor, verde, limparCor);
+    linhaVazia();
+    printf("%s|%s [3] Cadastrar empresa                     %s|%s\n", verde, limparCor, verde, limparCor);
+    linhaVazia();
+    printf("%s|%s [4] Cadastrar colaborador                 %s|%s\n", verde, limparCor, verde, limparCor);
+    linhaVazia();
+    printf("%s|%s [0] Encerrar sessao                       %s|%s\n",verde, vermelho, verde, limparCor);
+    linhaVazia();
     printf("%s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
     printf("\n");
 }
 
 void main() {
-    telaLogin();
+    //telaLogin();
     menuPrincipal();
     sleep(6);
 }
