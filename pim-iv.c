@@ -74,13 +74,13 @@ void telaLogin() {
             usuario[0] = '\0';
             senha[0] = '\0';
             printf("\n");
-            printf("%sUsuario e/ou senha estão incorretos. Por favor, tente novamente%s", vermelho, limparCor);
+            printf("%sUsuario e/ou senha estão incorretos. Por favor, tente novamente!%s", vermelho, limparCor);
             sleep(2);
         }
     }
 }
 
-void menuPrincipal() {
+int menuPrincipal() {
     limparTerm();
     printf("\n");
     printf("%s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
@@ -99,6 +99,10 @@ void menuPrincipal() {
     linhaVazia();
     printf("%s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
     printf("\n");
+    printf("Sua opcao: ");
+    int opcao;
+    scanf("%d", &opcao);
+    return opcao;
 }
 
 void main() {
