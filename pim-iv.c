@@ -59,9 +59,9 @@ void telaLogin() {
         if (strcmp(usuario, usrAdm) == 0 && strcmp(senha, senAdm) == 0) {
             limparTerm();
             printf("\n");
-            printf("%s=====================================\n", verde);
-            printf("|    >>> Senha bem vindo(a)! <<<    |\n");
-            printf("=====================================%s\n", limparCor);
+            printf("%s====================================\n", verde);
+            printf("|    >>> Seja bem vindo(a)! <<<    |\n");
+            printf("====================================%s\n", limparCor);
             sleep(2);
             break;
         } else {
@@ -82,11 +82,17 @@ void menuPrincipal() {
     printf("%s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
     printf("|               MENU PRINCIPAL              |\n");
     printf("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
+    printf("\n");
     printf("[1] Consulta\n");
+    printf("\n");
     printf("[2] Gerar relatorio\n");
+    printf("\n");
     printf("[3] Cadastrar empresa\n");
+    printf("\n");
     printf("[4] Cadastrar colaborador\n");
+    printf("\n");
     printf("%s[0] Encerrar sessao\n%s",vermelho, limparCor);
+    printf("\n");
     printf("%s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
     printf("\n");
 }
@@ -94,5 +100,5 @@ void menuPrincipal() {
 void main() {
     telaLogin();
     menuPrincipal();
-    sleep(3);
+    sleep(6);
 }
