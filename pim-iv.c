@@ -80,7 +80,7 @@ void telaLogin() {
     }
 }
 
-int menuPrincipal() {
+void menuPrincipal() {
     limparTerm();
     printf("\n");
     printf("%s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
@@ -99,14 +99,38 @@ int menuPrincipal() {
     linhaVazia();
     printf("%s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
     printf("\n");
-    printf("Sua opcao: ");
-    int opcao;
-    scanf("%d", &opcao);
-    return opcao;
 }
 
 void main() {
+    int opcao;
+
     //telaLogin();
-    menuPrincipal();
-    sleep(6);
+
+    while (1) {
+        menuPrincipal();
+        printf("Sua opcao: ");
+        scanf("%d", &opcao);
+
+        if (opcao == 0) {
+            limparTerm();
+            printf("\n\n\n");
+            printf("%s >>>  Encerrando...  <<<%s", vermelho, limparCor);
+            sleep(1.5);
+            limparTerm();
+            break;
+        } else if (opcao == 1){
+            /* code */
+        }else if (opcao == 2){
+            /* code */
+        }else if (opcao == 3){
+            /* code */
+        }else if (opcao == 4){
+            /* code */
+        } else {
+            limparTerm();
+            printf("\n\n\n");
+            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            sleep(1.5);
+        }
+    }
 }
