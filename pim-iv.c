@@ -19,7 +19,7 @@ void limparTerm() {  //Limpa o terminal com base no SO
 }
 
 void linhaVazia(){
-    printf("%s|                                           |%s\n", verde, limparCor);
+    printf("   %s|                                           |%s\n", verde, limparCor);
 }
 
 void telaLogin() {
@@ -32,14 +32,14 @@ void telaLogin() {
     while (1){
         limparTerm();
         printf("\n");
-        printf("%s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
-        printf("|                   LOGIN                   |\n");
-        printf("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
+        printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
+        printf("   |                   LOGIN                   |\n");
+        printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
         printf("\n");
-        printf("Usuario: ");
+        printf("   Usuario: ");
         fgets(usuario, sizeof(usuario), stdin);
         usuario[strcspn(usuario, "\n")] = '\0'; //Remover a quebra de linha (\n) do final do nome de usuário.
-        printf("Senha: ");
+        printf("   Senha: ");
 
         while (1){
             char letra = getch();
@@ -63,9 +63,9 @@ void telaLogin() {
         if (strcmp(usuario, usrAdm) == 0 && strcmp(senha, senAdm) == 0) {
             limparTerm();
             printf("\n");
-            printf("%s====================================\n", verde);
-            printf("|    >>> Seja bem vindo(a)! <<<    |\n");
-            printf("====================================%s\n", limparCor);
+            printf("   %s====================================\n", verde);
+            printf("   |    >>> Seja bem vindo(a)! <<<    |\n");
+            printf("   ====================================%s\n", limparCor);
             sleep(2);
             break;
         } else {
@@ -74,7 +74,7 @@ void telaLogin() {
             usuario[0] = '\0';
             senha[0] = '\0';
             printf("\n");
-            printf("%sUsuario e/ou senha incorreto(s). Por favor, tente novamente!%s", vermelho, limparCor);
+            printf("   %sUsuario e/ou senha incorreto(s). Por favor, tente novamente!%s", vermelho, limparCor);
             sleep(2);
         }
     }
@@ -83,21 +83,21 @@ void telaLogin() {
 void menuPrincipal() {
     limparTerm();
     printf("\n");
-    printf("%s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
-    printf("|               MENU PRINCIPAL              |\n");
-    printf("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
+    printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
+    printf("   |               MENU PRINCIPAL              |\n");
+    printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
     linhaVazia();
-    printf("%s|%s [1] Consulta                              %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [1] Consulta                              %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia();
-    printf("%s|%s [2] Gerar relatorio                       %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [2] Gerar relatorio                       %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia();
-    printf("%s|%s [3] Cadastrar empresa                     %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [3] Cadastrar empresa                     %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia();
-    printf("%s|%s [4] Cadastrar colaborador                 %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [4] Cadastrar colaborador                 %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia();
-    printf("%s|%s [0] Encerrar sessao                       %s|%s\n",verde, vermelho, verde, limparCor);
+    printf("   %s|%s [0] Encerrar sessao                       %s|%s\n",verde, vermelho, verde, limparCor);
     linhaVazia();
-    printf("%s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
+    printf("   %s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
     printf("\n");
 }
 
@@ -108,7 +108,7 @@ void main() {
 
     while (1) {
         menuPrincipal();
-        printf("Sua opcao: ");
+        printf("   Sua opcao: ");
         scanf("%d", &opcao);
 
         if (opcao == 0) {
