@@ -74,7 +74,7 @@ void telaLogin() {
             usuario[0] = '\0';
             senha[0] = '\0';
             printf("\n");
-            printf("%sUsuario e/ou senha estão incorretos. Por favor, tente novamente!%s", vermelho, limparCor);
+            printf("%sUsuario e/ou senha incorreto(s). Por favor, tente novamente!%s", vermelho, limparCor);
             sleep(2);
         }
     }
