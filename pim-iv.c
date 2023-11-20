@@ -23,10 +23,10 @@ void linhaVazia(){
 }
 
 void telaLogin() {
-    char usrAdm[30] = "adm";
-    char senAdm[30] = "adm123";
-    char usuario[30];
-    char senha[30];
+    char usrAdm[31] = "adm";
+    char senAdm[31] = "adm123";
+    char usuario[31];
+    char senha[31];
     int i = 0;
 
     while (1){
