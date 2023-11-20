@@ -18,9 +18,11 @@ void limparTerm() {  //Limpa o terminal com base no SO
     #endif
 }
 
-void linhaVazia(){
-    printf("   %s|                                           |%s\n", verde, limparCor);
+
+void linhaVazia(char cor[8]){
+    printf("   %s|                                           |%s\n", cor, limparCor);
 }
+
 
 void telaLogin() {
     char usrAdm[31] = "adm";
@@ -80,26 +82,48 @@ void telaLogin() {
     }
 }
 
+
 void menuPrincipal() {
     limparTerm();
     printf("\n");
     printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
     printf("   |               MENU PRINCIPAL              |\n");
     printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
-    linhaVazia();
+    linhaVazia(verde);
     printf("   %s|%s [1] Consulta                              %s|%s\n", verde, limparCor, verde, limparCor);
-    linhaVazia();
+    linhaVazia(verde);
     printf("   %s|%s [2] Gerar relatorio                       %s|%s\n", verde, limparCor, verde, limparCor);
-    linhaVazia();
+    linhaVazia(verde);
     printf("   %s|%s [3] Cadastrar empresa                     %s|%s\n", verde, limparCor, verde, limparCor);
-    linhaVazia();
-    printf("   %s|%s [4] Cadastrar colaborador                 %s|%s\n", verde, limparCor, verde, limparCor);
-    linhaVazia();
+    linhaVazia(verde);
+    printf("   %s|%s [4] Colaboradores                         %s|%s\n", verde, limparCor, verde, limparCor);
+    linhaVazia(verde);
     printf("   %s|%s [0] Encerrar sessao                       %s|%s\n",verde, vermelho, verde, limparCor);
-    linhaVazia();
+    linhaVazia(verde);
     printf("   %s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
     printf("\n");
 }
+
+
+void menuColaboradores() {
+    limparTerm();
+    printf("\n");
+    printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
+    printf("   |           MENU DE COLABORADORES           |\n");
+    printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [1] Cadastrar usuario                     %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [2] Lista de usuarios                     %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [3] Remover usuario                       %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [0] Voltar                                %s|%s\n",amarelo, amarelo, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", amarelo, limparCor);
+    printf("\n");
+}
+
 
 void main() {
     int opcao;
@@ -125,7 +149,8 @@ void main() {
         }else if (opcao == 3){
             /* code */
         }else if (opcao == 4){
-            /* code */
+            menuColaboradores();
+            sleep(5);
         } else {
             limparTerm();
             printf("\n\n\n");
