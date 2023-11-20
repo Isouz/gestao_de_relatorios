@@ -90,13 +90,11 @@ void menuPrincipal() {
     printf("   |               MENU PRINCIPAL              |\n");
     printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
     linhaVazia(verde);
-    printf("   %s|%s [1] Consulta                              %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [1] Relatorios                            %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia(verde);
-    printf("   %s|%s [2] Gerar relatorio                       %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [2] Empresas                              %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia(verde);
-    printf("   %s|%s [3] Empresas                              %s|%s\n", verde, limparCor, verde, limparCor);
-    linhaVazia(verde);
-    printf("   %s|%s [4] Colaboradores                         %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [3] Colaboradores                         %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia(verde);
     printf("   %s|%s [0] Encerrar sessao                       %s|%s\n",verde, vermelho, verde, limparCor);
     linhaVazia(verde);
@@ -145,6 +143,26 @@ void menuColaboradores() {
 }
 
 
+void menuRelatorios() {
+    limparTerm();
+    printf("\n");
+    printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
+    printf("   |             MENU DE RELATORIOS             |\n");
+    printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [1] Exibir/Baixar relatorio               %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [2] Gerar relatorio                       %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [3] Excluir relatorio                     %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [0] Voltar                                %s|%s\n",amarelo, amarelo, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", amarelo, limparCor);
+    printf("\n");
+}
+
+
 void main() {
     int opcao;
 
@@ -163,13 +181,12 @@ void main() {
             limparTerm();
             break;
         } else if (opcao == 1){
-            /* code */
+            menuRelatorios();
+            sleep(5);
         }else if (opcao == 2){
-            /* code */
-        }else if (opcao == 3){
             menuEmpresas();
             sleep(5);
-        }else if (opcao == 4){
+        }else if (opcao == 3){
             menuColaboradores();
             sleep(5);
         } else {
