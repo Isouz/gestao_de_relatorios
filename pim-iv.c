@@ -3,12 +3,39 @@
 #include <conio.h>
 #include <unistd.h>
 
+struct colabs {
+    char nome[51];
+    char matricula[21];
+    char usuario[31];
+    char senha[31];
+};
+
+struct empresas {
+    char id[6];
+    char responsavel[51];
+    char cpf[12];
+    char razao[21];
+    char fantasia[21];
+    char cnpj[21];
+    char abertura[11];
+    char fone[16];
+    char email[31];
+    char logradouro[41];
+    char numero[6];
+    char cep[11];
+    char bairro[31];
+    char cidade[31];
+    char estado[31];
+};
+
+
 //Cores
 char vermelho[8] = "\033[31m";
 char verde[8] = "\033[32m";
 char amarelo[8] = "\033[33m";
 char azul[8] = "\033[34m";
 char limparCor[6] = "\033[m";
+
 
 void limparTerm() {  //Limpa o terminal com base no SO
     #ifdef _WIN32
@@ -23,6 +50,47 @@ void linhaVazia(char cor[8]){
     printf("   %s|                                           |%s\n", cor, limparCor);
 }
 
+void inserirDados() {
+    while (1){   
+        limparTerm();
+
+        FILE *arquivo;
+        arquivo = fopen("arqUsuarios.txt", "a");
+
+        if (arquivo == NULL) {
+            printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
+            sleep(3);
+            break;
+        } else {
+            struct colabs colaborador;
+
+            printf("\n   > Nome completo: ");
+            while (getchar() != '\n');    // Limpar o buffer de entrada
+            fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
+            colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
+
+            printf("   > Matricula: ");
+            fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
+            colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
+
+            printf("   > Defina um usuario: ");
+            fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
+            colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
+
+            printf("   > Defina uma senha: ");
+            fgets(colaborador.senha, sizeof(colaborador.senha), stdin);
+            colaborador.senha[strcspn(colaborador.senha, "\n")] = '\0';
+
+            printf("%s\n", colaborador.nome);
+            printf("%s\n", colaborador.matricula);
+            printf("%s\n", colaborador.usuario);
+            printf("%s\n", colaborador.senha);
+            sleep(5);
+            fclose(arquivo);
+            break;
+        }
+    }
+}
 
 void telaLogin() {
     char usrAdm[31] = "adm";
@@ -171,22 +239,29 @@ int menuRelatorios() {
         printf("   Sua opcao: ");
         scanf("%d", &opcao);
 
-        if (opcao == 0) {
+        if (opcao == 0) {  // Voltar
             limparTerm();
             break;
-        } else if (opcao == 1){
+        } else if (opcao == 1){  // Gerar relatorio
             /*code*/
             sleep(2);
-        }else if (opcao == 2){
-            /*code*/
+        }else if (opcao == 2){  // Exibir/Baixar relatorio
+            limparTerm();
+            printf("\n\n");
+            int selecao;
+            /*Criar uma função para exibir os ids, nomes das emrpesas e data de modificação*/
+            printf("   > Digite o id do relatorio para EXIBIR: ");
             sleep(2);
-        }else if (opcao == 3){
-            /*code*/
+        }else if (opcao == 3){  // Excluir relatorio 
+            limparTerm();
+            printf("\n\n");
+            int selecao;
+            printf("   > Digite o id do relatorio para REMOVER: ");
             sleep(2);
         } else {
             limparTerm();
             printf("\n\n\n");
-            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
             while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
         }
@@ -202,22 +277,25 @@ int menuEmpresas() {
         printf("   Sua opcao: ");
         scanf("%d", &opcao);
 
-        if (opcao == 0) {
+        if (opcao == 0) {   // Voltar
             limparTerm();
             break;
-        } else if (opcao == 1){
+        } else if (opcao == 1){  // Cadastrar empresa
             /*code*/
             sleep(2);
-        }else if (opcao == 2){
+        }else if (opcao == 2){  // Lista de empresas
             /*code*/
             sleep(2);
-        }else if (opcao == 3){
-            /*code*/
+        }else if (opcao == 3){  // Remover empresa
+            limparTerm();
+            printf("\n\n");
+            int selecao;
+            printf("   > Digite o CNPJ para REMOVER: ");
             sleep(2);
         } else {
             limparTerm();
             printf("\n\n\n");
-            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
             while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
         }
@@ -233,22 +311,27 @@ int menuColaboradores() {
         printf("   Sua opcao: ");
         scanf("%d", &opcao);
 
-        if (opcao == 0) {
+        if (opcao == 0) {  // Voltar
             limparTerm();
             break;
-        } else if (opcao == 1){
+        } else if (opcao == 1){  // Cadastrar usuario
+            //*******************************************        
+            inserirDados();
+            //******************************************* 
+            sleep(2);
+        }else if (opcao == 2){  // Lista de usuarios
             /*code*/
             sleep(2);
-        }else if (opcao == 2){
-            /*code*/
-            sleep(2);
-        }else if (opcao == 3){
-            /*code*/
+        }else if (opcao == 3){  // Remover usuario
+            limparTerm();
+            printf("\n\n");
+            int selecao;
+            printf("   > Digite a matricula para REMOVER: ");
             sleep(2);
         } else {
             limparTerm();
             printf("\n\n\n");
-            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
             while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
         }
@@ -264,23 +347,23 @@ int menuPrincipal() {
         printf("   Sua opcao: ");
         scanf("%d", &opcao);
 
-        if (opcao == 0) {
+        if (opcao == 0) {  // Encerrar
             limparTerm();
             printf("\n\n\n");
-            printf("%s >>>  Encerrando...  <<<%s", vermelho, limparCor);
+            printf("%s   >>>  Encerrando...  <<<%s", vermelho, limparCor);
             sleep(1.5);
             limparTerm();
             break;
-        } else if (opcao == 1){
+        } else if (opcao == 1){   // Relatorios
             menuRelatorios();
-        } else if (opcao == 2){
+        } else if (opcao == 2){  // Empresas
             menuEmpresas();
-        } else if (opcao == 3){
+        } else if (opcao == 3){  // Colaboradores
             menuColaboradores();
         } else {
             limparTerm();
             printf("\n\n\n");
-            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
             while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
         }
