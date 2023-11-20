@@ -83,7 +83,7 @@ void telaLogin() {
 }
 
 
-void menuPrincipal() {
+void desenhaMenuPrinc() {
     limparTerm();
     printf("\n");
     printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", verde);
@@ -103,7 +103,7 @@ void menuPrincipal() {
 }
 
 
-void menuEmpresas() {
+void desenhaMenuEmpr() {
     limparTerm();
     printf("\n");
     printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
@@ -123,7 +123,7 @@ void menuEmpresas() {
 }
 
 
-void menuColaboradores() {
+void desenhaMenuColab() {
     limparTerm();
     printf("\n");
     printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
@@ -143,16 +143,16 @@ void menuColaboradores() {
 }
 
 
-void menuRelatorios() {
+void desenhaMenuRelat() {
     limparTerm();
     printf("\n");
     printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
-    printf("   |             MENU DE RELATORIOS             |\n");
+    printf("   |             MENU DE RELATORIOS            |\n");
     printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
     linhaVazia(amarelo);
-    printf("   %s|%s [1] Exibir/Baixar relatorio               %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    printf("   %s|%s [1] Gerar relatorio                       %s|%s\n", amarelo, limparCor, amarelo, limparCor);
     linhaVazia(amarelo);
-    printf("   %s|%s [2] Gerar relatorio                       %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    printf("   %s|%s [2] Exibir/Baixar relatorio               %s|%s\n", amarelo, limparCor, amarelo, limparCor);
     linhaVazia(amarelo);
     printf("   %s|%s [3] Excluir relatorio                     %s|%s\n", amarelo, limparCor, amarelo, limparCor);
     linhaVazia(amarelo);
@@ -163,13 +163,104 @@ void menuRelatorios() {
 }
 
 
-void main() {
+int menuRelatorios() {
     int opcao;
 
-    //telaLogin();
+    while (1) {
+        desenhaMenuRelat();
+        printf("   Sua opcao: ");
+        scanf("%d", &opcao);
+
+        if (opcao == 0) {
+            limparTerm();
+            break;
+        } else if (opcao == 1){
+            /*code*/
+            sleep(2);
+        }else if (opcao == 2){
+            /*code*/
+            sleep(2);
+        }else if (opcao == 3){
+            /*code*/
+            sleep(2);
+        } else {
+            limparTerm();
+            printf("\n\n\n");
+            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            sleep(1.5);
+            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
+        }
+    }
+}
+
+
+int menuEmpresas() {
+    int opcao;
 
     while (1) {
-        menuPrincipal();
+        desenhaMenuEmpr();
+        printf("   Sua opcao: ");
+        scanf("%d", &opcao);
+
+        if (opcao == 0) {
+            limparTerm();
+            break;
+        } else if (opcao == 1){
+            /*code*/
+            sleep(2);
+        }else if (opcao == 2){
+            /*code*/
+            sleep(2);
+        }else if (opcao == 3){
+            /*code*/
+            sleep(2);
+        } else {
+            limparTerm();
+            printf("\n\n\n");
+            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            sleep(1.5);
+            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
+        }
+    }
+}
+
+
+int menuColaboradores() {
+    int opcao;
+
+    while (1) {
+        desenhaMenuColab();
+        printf("   Sua opcao: ");
+        scanf("%d", &opcao);
+
+        if (opcao == 0) {
+            limparTerm();
+            break;
+        } else if (opcao == 1){
+            /*code*/
+            sleep(2);
+        }else if (opcao == 2){
+            /*code*/
+            sleep(2);
+        }else if (opcao == 3){
+            /*code*/
+            sleep(2);
+        } else {
+            limparTerm();
+            printf("\n\n\n");
+            printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
+            sleep(1.5);
+            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
+        }
+    }
+}
+
+
+int menuPrincipal() {
+    int opcao;
+
+    while (1) {
+        desenhaMenuPrinc();
         printf("   Sua opcao: ");
         scanf("%d", &opcao);
 
@@ -182,13 +273,10 @@ void main() {
             break;
         } else if (opcao == 1){
             menuRelatorios();
-            sleep(5);
-        }else if (opcao == 2){
+        } else if (opcao == 2){
             menuEmpresas();
-            sleep(5);
-        }else if (opcao == 3){
+        } else if (opcao == 3){
             menuColaboradores();
-            sleep(5);
         } else {
             limparTerm();
             printf("\n\n\n");
@@ -197,4 +285,10 @@ void main() {
             while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
         }
     }
+}
+
+
+void main() {
+    //telaLogin();
+    menuPrincipal();
 }
