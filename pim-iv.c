@@ -94,13 +94,33 @@ void menuPrincipal() {
     linhaVazia(verde);
     printf("   %s|%s [2] Gerar relatorio                       %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia(verde);
-    printf("   %s|%s [3] Cadastrar empresa                     %s|%s\n", verde, limparCor, verde, limparCor);
+    printf("   %s|%s [3] Empresas                              %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia(verde);
     printf("   %s|%s [4] Colaboradores                         %s|%s\n", verde, limparCor, verde, limparCor);
     linhaVazia(verde);
     printf("   %s|%s [0] Encerrar sessao                       %s|%s\n",verde, vermelho, verde, limparCor);
     linhaVazia(verde);
     printf("   %s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", verde, limparCor);
+    printf("\n");
+}
+
+
+void menuEmpresas() {
+    limparTerm();
+    printf("\n");
+    printf("   %s+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+\n", amarelo);
+    printf("   |              MENU DE EMPRESAS             |\n");
+    printf("   +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+%s\n", limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [1] Cadastrar empresa                     %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [2] Lista de empresas                     %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [3] Remover empresa                       %s|%s\n", amarelo, limparCor, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s|%s [0] Voltar                                %s|%s\n",amarelo, amarelo, amarelo, limparCor);
+    linhaVazia(amarelo);
+    printf("   %s-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%s\n", amarelo, limparCor);
     printf("\n");
 }
 
@@ -147,7 +167,8 @@ void main() {
         }else if (opcao == 2){
             /* code */
         }else if (opcao == 3){
-            /* code */
+            menuEmpresas();
+            sleep(5);
         }else if (opcao == 4){
             menuColaboradores();
             sleep(5);
