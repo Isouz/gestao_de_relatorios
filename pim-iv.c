@@ -131,6 +131,7 @@ void main() {
             printf("\n\n\n");
             printf("%s >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
+            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
         }
     }
 }
