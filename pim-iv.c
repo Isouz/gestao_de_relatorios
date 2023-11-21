@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <ctype.h>
 
+#define TAMANHO_MAX 31
 
 /* ====== STRUCTS ======*/
 struct colabs {
@@ -47,6 +48,11 @@ void limparTerm() {  //Limpa o terminal com base no SO
     #else
         system("clear"); //Limpa terminal Unix
     #endif
+}
+
+
+void limparBuffer() { // Limpa o buffer de entrada para evitar loop infinito
+    while (getchar() != '\n');
 }
 
 
@@ -126,12 +132,27 @@ char *comparaSenhas() {
 }
 
 
+int dadoExiste(char *dadoProcurado, char *nomeArquivo) {
+    char linhaArquivo[TAMANHO_MAX];
+
+    while (fgets(linhaArquivo, sizeof(linhaArquivo), nomeArquivo) != NULL) {
+        linhaArquivo[strcspn(linhaArquivo, "\n")] = '\0';
+
+        // Comparar a matrícula procurada com a matrícula na linha do arquivo
+        if (strstr(linhaArquivo, dadoProcurado) != NULL) {
+            return 1;  // Se o dado foi encontrato
+        }
+    }
+    return 0; // Se o dado não foi encontrato
+}
+
+
 void inserirDadosColab() {
 
     limparTerm();
 
     FILE *arquivo;
-    arquivo = fopen("arqUsuarios.txt", "a");
+    arquivo = fopen("arqUsuarios.txt", "a+");
 
     if (arquivo == NULL) {
         printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
@@ -143,13 +164,26 @@ void inserirDadosColab() {
             struct colabs colaborador;
 
             printf("\n   > Nome completo: ");
-            while (getchar() != '\n');    // Limpar o buffer de entrada
+            limparBuffer();
             fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
             colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
 
-            printf("   > Matricula: ");
-            fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
-            colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
+        //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+            while(1){
+                printf("   > Matricula: ");
+                fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
+                colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
+
+                if (dadoExiste(colaborador.matricula, arquivo)) {
+                    printf("   %s>>> Essa matricula já foi registrada antes! <<<.%s\n", amarelo, limparCor);
+                    sleep(2);
+                    colaborador.matricula[0] = '\0';
+                    limparTerm();
+                } else {
+                    break;
+                }
+            }
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
 
             printf("   > Defina um usuario: ");
             fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
@@ -171,7 +205,8 @@ void inserirDadosColab() {
             fprintf(arquivo, "----------------------------------------------");
             fprintf(arquivo, "\n");
             
-            printf("\n\n   %s>>> Dados gravados com sucesso! <<<%s", verde, limparCor);
+            printf("\n\n   %s>>> Dados armazenados! <<<%s", verde, limparCor);
+            free(senha);
             sleep(2);
             
             while (1){
@@ -252,6 +287,7 @@ void telaLogin() {
             printf("\n");
             printf("   %sUsuario e/ou senha incorreto(s). Por favor, tente novamente!%s", vermelho, limparCor);
             sleep(2);
+            //limparBuffer();
         }
     }
 }
@@ -371,7 +407,7 @@ int menuRelatorios() {
             printf("\n\n\n");
             printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
-            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
+            limparBuffer();
         }
     }
 }
@@ -405,7 +441,7 @@ int menuEmpresas() {
             printf("\n\n\n");
             printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
-            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
+            limparBuffer();
         }
     }
 }
@@ -438,7 +474,7 @@ int menuColaboradores() {
             printf("\n\n\n");
             printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
-            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
+            limparBuffer();
         }
     }
 }
