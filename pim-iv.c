@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <ctype.h>
 
-#define TAMANHO_MAX 31
+#define TAMANHO_MAX 41
 
 /* ====== STRUCTS ======*/
 struct colabs {
@@ -116,7 +116,7 @@ char *comparaSenhas() {
         if (strcmp(senha1, senha2) == 0){
             limparTerm();
             printf("\n\n   %s>>> Senha armazenada com sucesso! <<<%s", verde, limparCor);
-            sleep(2);
+            sleep(1.5);
             limparTerm();
             break;
         } else {
@@ -132,17 +132,19 @@ char *comparaSenhas() {
 }
 
 
-int dadoExiste(char *dadoProcurado, char *nomeArquivo) {
+int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
     char linhaArquivo[TAMANHO_MAX];
 
-    while (fgets(linhaArquivo, sizeof(linhaArquivo), nomeArquivo) != NULL) {
+    while (fgets(linhaArquivo, sizeof(linhaArquivo), Arquivo) != NULL) {
         linhaArquivo[strcspn(linhaArquivo, "\n")] = '\0';
 
         // Comparar a matrícula procurada com a matrícula na linha do arquivo
-        if (strstr(linhaArquivo, dadoProcurado) != NULL) {
+        if (strstr(linhaArquivo, formato) == NULL && strstr(linhaArquivo, dadoProcurado) != NULL) {
+            rewind(Arquivo); //coloca o cursor no inicio do arquivo
             return 1;  // Se o dado foi encontrato
         }
     }
+    rewind(Arquivo); //coloca o cursor no inicio do arquivo
     return 0; // Se o dado não foi encontrato
 }
 
@@ -156,26 +158,30 @@ void inserirDadosColab() {
 
     if (arquivo == NULL) {
         printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
-        sleep(3);
+        sleep(2);
     } else {
         while (1){   
 
             char continuar;
             struct colabs colaborador;
 
+            //solicita nome
             printf("\n   > Nome completo: ");
             limparBuffer();
             fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
             colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
 
-        //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+            //solicita matricula
             while(1){
                 printf("   > Matricula: ");
                 fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
                 colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
 
-                if (dadoExiste(colaborador.matricula, arquivo)) {
-                    printf("   %s>>> Essa matricula já foi registrada antes! <<<.%s\n", amarelo, limparCor);
+                char formato[TAMANHO_MAX];
+                snprintf(formato, sizeof(formato), "Matricula: %s", colaborador.matricula);
+
+                if (dadoExiste(formato, colaborador.matricula, arquivo)) {
+                    printf("   %s>>> Essa matricula ja foi registrada antes! <<<.%s\n", amarelo, limparCor);
                     sleep(2);
                     colaborador.matricula[0] = '\0';
                     limparTerm();
@@ -183,23 +189,34 @@ void inserirDadosColab() {
                     break;
                 }
             }
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
+             
+            //solicita usuario
+            while(1){
+                printf("   > Defina um usuario: ");
+                fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
+                colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
 
-            printf("   > Defina um usuario: ");
-            fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
-            colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
-            /*
-            printf("   > Defina uma senha: ");
-            fgets(colaborador.senha, sizeof(colaborador.senha), stdin);
-            colaborador.senha[strcspn(colaborador.senha, "\n")] = '\0';
-            */
+                char formato2[TAMANHO_MAX];
+                snprintf(formato2, sizeof(formato2), "Usuario: %s", colaborador.usuario);
 
+                if (dadoExiste(formato2, colaborador.usuario, arquivo)) {
+                    printf("   %s>>> Esse usuario ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
+                    sleep(2);
+                    colaborador.usuario[0] = '\0';
+                    limparTerm();
+                } else {
+                    break;
+                }
+            }
+
+            //solicita senha
             char *senha = comparaSenhas();
             strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
 
+            //Armazena os dados da struct no arquivo
             fprintf(arquivo, "Nome: %s\n", colaborador.nome);
-            fprintf(arquivo, "Usuario: %s\n", colaborador.usuario);
             fprintf(arquivo, "Matricula: %s\n", colaborador.matricula);
+            fprintf(arquivo, "Usuario: %s\n", colaborador.usuario);
             fprintf(arquivo, "Senha: %s\n", colaborador.senha);
             fprintf(arquivo, "\n");
             fprintf(arquivo, "----------------------------------------------");
@@ -209,6 +226,7 @@ void inserirDadosColab() {
             free(senha);
             sleep(2);
             
+            //Deseja continuar?
             while (1){
                 limparTerm();
                 printf("   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
@@ -514,7 +532,7 @@ int menuPrincipal() {
 
 /* ====== PROGRAMA ======*/
 int main() {
-    //telaLogin();
+    telaLogin();
     menuPrincipal();
 
     return 0;
