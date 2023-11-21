@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <unistd.h>
+#include <ctype.h>
 
 struct colabs {
     char nome[51];
@@ -51,17 +52,19 @@ void linhaVazia(char cor[8]){
 }
 
 void inserirDados() {
-    while (1){   
-        limparTerm();
 
-        FILE *arquivo;
-        arquivo = fopen("arqUsuarios.txt", "a");
+    limparTerm();
 
-        if (arquivo == NULL) {
-            printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
-            sleep(3);
-            break;
-        } else {
+    FILE *arquivo;
+    arquivo = fopen("arqUsuarios.txt", "a");
+
+    if (arquivo == NULL) {
+        printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
+        sleep(3);
+    } else {
+        while (1){   
+
+            char continuar;
             struct colabs colaborador;
 
             printf("\n   > Nome completo: ");
@@ -80,15 +83,38 @@ void inserirDados() {
             printf("   > Defina uma senha: ");
             fgets(colaborador.senha, sizeof(colaborador.senha), stdin);
             colaborador.senha[strcspn(colaborador.senha, "\n")] = '\0';
-
-            printf("%s\n", colaborador.nome);
-            printf("%s\n", colaborador.matricula);
-            printf("%s\n", colaborador.usuario);
-            printf("%s\n", colaborador.senha);
-            sleep(5);
-            fclose(arquivo);
-            break;
+            
+            fprintf(arquivo, "Nome: %s\n", colaborador.nome);
+            fprintf(arquivo, "Usuario: %s\n", colaborador.usuario);
+            fprintf(arquivo, "Matricula: %s\n", colaborador.matricula);
+            fprintf(arquivo, "Senha: %s\n", colaborador.senha);
+            fprintf(arquivo, "\n");
+            fprintf(arquivo, "----------------------------------------------");
+            fprintf(arquivo, "\n");
+            
+            printf("\n\n   %s>>> Dados gravados com sucesso! <<<%s", verde, limparCor);
+            sleep(2);
+            
+            while (1){
+                limparTerm();
+                printf("   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
+                scanf("%c", &continuar);
+                
+                if (toupper(continuar) == 'S' || toupper(continuar) == 'N'){
+                    limparTerm();
+                    break;          
+                } else {
+                    limparTerm();
+                    printf("   %s>>> Opcao invalida <<<%s", vermelho, limparCor);
+                    sleep(2);
+                    while (getchar() != '\n');
+                }
+            }
+            if (toupper(continuar) == 'N'){
+                break;
+            }
         }
+        fclose(arquivo);
     }
 }
 
