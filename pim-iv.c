@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <ctype.h>
 
+
+/* ====== STRUCTS ======*/
 struct colabs {
     char nome[51];
     char matricula[21];
@@ -30,7 +32,7 @@ struct empresas {
 };
 
 
-//Cores
+/* ====== CORES ======*/
 char vermelho[8] = "\033[31m";
 char verde[8] = "\033[32m";
 char amarelo[8] = "\033[33m";
@@ -38,6 +40,7 @@ char azul[8] = "\033[34m";
 char limparCor[6] = "\033[m";
 
 
+/* ====== FERRAMENTAS ======*/
 void limparTerm() {  //Limpa o terminal com base no SO
     #ifdef _WIN32
         system("cls"); //Limpa terminal Windows
@@ -51,7 +54,79 @@ void linhaVazia(char cor[8]){
     printf("   %s|                                           |%s\n", cor, limparCor);
 }
 
-void inserirDados() {
+
+char *comparaSenhas() {
+
+    struct colabs *colaborador;
+    char senha1[31];
+    char senha2[31];
+    int i = 0;
+
+    while (1) {
+        limparTerm();
+        printf("\n   > Defina uma senha: ");
+
+        while (1){
+            char letra = getch();
+            if (letra == '\r' || letra == '\n') {   //Se o usuario apertar ENTER.
+                senha1[i] = '\0';
+                i = 0;
+                break;
+            } else if (letra == '\b') {    //Se o campo estiver vazio e o usuario apertar BACKSPACE.
+                if (i > 0) {
+                    i--;
+                    printf("\b \b");
+                } else {
+                        //Se o campo de senha estiver vazio não faça nada.
+                }
+            } else if (i < 30) {    //Armazena a letra em "senha".
+                senha1[i] = letra;
+                i++;
+                printf("*");
+            }
+        }
+
+        printf("\n   > Confirme a senha: ");
+        while (1){
+            char letra = getch();
+            if (letra == '\r' || letra == '\n') {   //Se o usuario apertar ENTER.
+                senha2[i] = '\0';
+                i = 0;
+                break;
+            } else if (letra == '\b') {    //Se o campo estiver vazio e o usuario apertar BACKSPACE.
+                if (i > 0) {
+                    i--;
+                    printf("\b \b");
+                } else {
+                        //Se o campo de senha estiver vazio não faça nada.
+                }
+            } else if (i < 30) {    //Armazena a letra em "senha".
+                senha2[i] = letra;
+                i++;
+                printf("*");
+            }
+        }
+
+        if (strcmp(senha1, senha2) == 0){
+            limparTerm();
+            printf("\n\n   %s>>> Senha armazenada com sucesso! <<<%s", verde, limparCor);
+            sleep(2);
+            limparTerm();
+            break;
+        } else {
+            limparTerm();
+            printf("\n\n   %s>>> As senhas digitadas sao diferentes! <<<%s", amarelo, limparCor);
+            sleep(2);
+            senha1[0] = '\0';
+            senha2[0] = '\0';
+        }
+    }
+    char *senha = strdup(senha1);
+    return senha;
+}
+
+
+void inserirDadosColab() {
 
     limparTerm();
 
@@ -79,11 +154,15 @@ void inserirDados() {
             printf("   > Defina um usuario: ");
             fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
             colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
-
+            /*
             printf("   > Defina uma senha: ");
             fgets(colaborador.senha, sizeof(colaborador.senha), stdin);
             colaborador.senha[strcspn(colaborador.senha, "\n")] = '\0';
-            
+            */
+
+            char *senha = comparaSenhas();
+            strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
+
             fprintf(arquivo, "Nome: %s\n", colaborador.nome);
             fprintf(arquivo, "Usuario: %s\n", colaborador.usuario);
             fprintf(arquivo, "Matricula: %s\n", colaborador.matricula);
@@ -117,6 +196,7 @@ void inserirDados() {
         fclose(arquivo);
     }
 }
+
 
 void telaLogin() {
     char usrAdm[31] = "adm";
@@ -177,6 +257,7 @@ void telaLogin() {
 }
 
 
+/* ====== DESENHAR MENUS ======*/
 void desenhaMenuPrinc() {
     limparTerm();
     printf("\n");
@@ -257,6 +338,7 @@ void desenhaMenuRelat() {
 }
 
 
+/* ====== MENUS ======*/
 int menuRelatorios() {
     int opcao;
 
@@ -340,11 +422,8 @@ int menuColaboradores() {
         if (opcao == 0) {  // Voltar
             limparTerm();
             break;
-        } else if (opcao == 1){  // Cadastrar usuario
-            //*******************************************        
-            inserirDados();
-            //******************************************* 
-            sleep(2);
+        } else if (opcao == 1){  // Cadastrar usuario       
+            inserirDadosColab();
         }else if (opcao == 2){  // Lista de usuarios
             /*code*/
             sleep(2);
@@ -397,7 +476,10 @@ int menuPrincipal() {
 }
 
 
-void main() {
+/* ====== PROGRAMA ======*/
+int main() {
     //telaLogin();
     menuPrincipal();
+
+    return 0;
 }
