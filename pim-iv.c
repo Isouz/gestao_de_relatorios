@@ -152,103 +152,104 @@ int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
 void inserirDadosColab() {
 
     limparTerm();
+    
+    while (1){   
 
-    FILE *arquivo;
-    arquivo = fopen("arqUsuarios.txt", "a+");
+        char continuar;
+        struct colabs colaborador;
 
-    if (arquivo == NULL) {
-        printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
-        sleep(2);
-    } else {
-        while (1){   
+        FILE *arquivo;
+        arquivo = fopen("arqUsuarios.txt", "a+");
 
-            char continuar;
-            struct colabs colaborador;
-
-            //solicita nome
-            printf("\n   > Nome completo: ");
-            limparBuffer();
-            fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
-            colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
-
-            //solicita matricula
-            while(1){
-                printf("   > Matricula: ");
-                fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
-                colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
-
-                char formato[TAMANHO_MAX];
-                snprintf(formato, sizeof(formato), "Matricula: %s;", colaborador.matricula);
-
-                if (dadoExiste(formato, colaborador.matricula, arquivo)) {
-                    printf("   %s>>> Essa matricula ja foi registrada antes! <<<.%s\n", amarelo, limparCor);
-                    sleep(2);
-                    colaborador.matricula[0] = '\0';
-                    limparTerm();
-                    printf("\n\n");
-                } else {
-                    break;
-                }
-            }
-             
-            //solicita usuario
-            while(1){
-                printf("   > Defina um usuario: ");
-                fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
-                colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
-
-                char formato2[TAMANHO_MAX];
-                snprintf(formato2, sizeof(formato2), "Usuario: %s;", colaborador.usuario);
-
-                if (dadoExiste(formato2, colaborador.usuario, arquivo)) {
-                    printf("   %s>>> Esse usuario ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
-                    sleep(2);
-                    colaborador.usuario[0] = '\0';
-                    limparTerm();
-                    printf("\n\n");
-                } else {
-                    break;
-                }
-            }
-
-            //solicita senha
-            char *senha = comparaSenhas();
-            strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
-
-            //Armazena os dados da struct no arquivo
-            fprintf(arquivo, "Nome: %s;\n", colaborador.nome);
-            fprintf(arquivo, "Matricula: %s;\n", colaborador.matricula);
-            fprintf(arquivo, "Usuario: %s;\n", colaborador.usuario);
-            fprintf(arquivo, "Senha: %s;\n", colaborador.senha);
-            fprintf(arquivo, "\n");
-            fprintf(arquivo, "----------------------------------------------");
-            fprintf(arquivo, "\n");
-            
-            printf("\n\n   %s>>> Dados armazenados! <<<%s", verde, limparCor);
-            free(senha);
+        if (arquivo == NULL) {
+            printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
             sleep(2);
-            
-            //Deseja continuar?
-            while (1){
+            break;
+        }
+
+        //solicita nome
+        printf("\n   > Nome completo: ");
+        limparBuffer();
+        fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
+        colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
+
+        //solicita matricula
+        while(1){
+            printf("   > Matricula: ");
+            fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
+            colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
+
+            char formato[TAMANHO_MAX];
+            snprintf(formato, sizeof(formato), "Matricula: %s;", colaborador.matricula);
+
+            if (dadoExiste(formato, colaborador.matricula, arquivo)) {
+                printf("   %s>>> Essa matricula ja foi registrada antes! <<<.%s\n", amarelo, limparCor);
+                sleep(2);
+                colaborador.matricula[0] = '\0';
                 limparTerm();
-                printf("   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
-                scanf("%c", &continuar);
-                
-                if (toupper(continuar) == 'S' || toupper(continuar) == 'N'){
-                    limparTerm();
-                    break;          
-                } else {
-                    limparTerm();
-                    printf("   %s>>> Opcao invalida <<<%s", vermelho, limparCor);
-                    sleep(2);
-                    while (getchar() != '\n');
-                }
-            }
-            if (toupper(continuar) == 'N'){
+                printf("\n\n");
+            } else {
                 break;
             }
         }
+            
+        //solicita usuario
+        while(1){
+            printf("   > Defina um usuario: ");
+            fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
+            colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
+
+            char formato2[TAMANHO_MAX];
+            snprintf(formato2, sizeof(formato2), "Usuario: %s;", colaborador.usuario);
+
+            if (dadoExiste(formato2, colaborador.usuario, arquivo)) {
+                printf("   %s>>> Esse usuario ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
+                sleep(2);
+                colaborador.usuario[0] = '\0';
+                limparTerm();
+                printf("\n\n");
+            } else {
+                break;
+            }
+        }
+
+        //solicita senha
+        char *senha = comparaSenhas();
+        strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
+
+        //Armazena os dados da struct no arquivo
+        fprintf(arquivo, "Nome: %s;\n", colaborador.nome);
+        fprintf(arquivo, "Matricula: %s;\n", colaborador.matricula);
+        fprintf(arquivo, "Usuario: %s;\n", colaborador.usuario);
+        fprintf(arquivo, "Senha: %s\n", colaborador.senha);
+        fprintf(arquivo, "\n");
+        fprintf(arquivo, "----------------------------------------------");
+        fprintf(arquivo, "\n");
+        
         fclose(arquivo);
+        printf("\n\n   %s>>> Dados armazenados! <<<%s", verde, limparCor);
+        free(senha);
+        sleep(2);
+        
+        //Deseja continuar?
+        while (1){
+            limparTerm();
+            printf("   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
+            scanf("%c", &continuar);
+            
+            if (toupper(continuar) == 'S' || toupper(continuar) == 'N'){
+                limparTerm();
+                break;          
+            } else {
+                limparTerm();
+                printf("   %s>>> Opcao invalida <<<%s", vermelho, limparCor);
+                sleep(2);
+                while (getchar() != '\n');
+            }
+        }
+        if (toupper(continuar) == 'N'){
+            break;
+        }
     }
 }
 
