@@ -139,7 +139,7 @@ int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
         linhaArquivo[strcspn(linhaArquivo, "\n")] = '\0';
 
         // Comparar a matrícula procurada com a matrícula na linha do arquivo
-        if (strstr(linhaArquivo, formato) == NULL && strstr(linhaArquivo, dadoProcurado) != NULL) {
+        if (strstr(linhaArquivo, formato) != NULL && strstr(linhaArquivo, dadoProcurado) != NULL) {
             rewind(Arquivo); //coloca o cursor no inicio do arquivo
             return 1;  // Se o dado foi encontrato
         }
@@ -178,13 +178,14 @@ void inserirDadosColab() {
                 colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
 
                 char formato[TAMANHO_MAX];
-                snprintf(formato, sizeof(formato), "Matricula: %s", colaborador.matricula);
+                snprintf(formato, sizeof(formato), "Matricula: %s;", colaborador.matricula);
 
                 if (dadoExiste(formato, colaborador.matricula, arquivo)) {
                     printf("   %s>>> Essa matricula ja foi registrada antes! <<<.%s\n", amarelo, limparCor);
                     sleep(2);
                     colaborador.matricula[0] = '\0';
                     limparTerm();
+                    printf("\n\n");
                 } else {
                     break;
                 }
@@ -197,13 +198,14 @@ void inserirDadosColab() {
                 colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
 
                 char formato2[TAMANHO_MAX];
-                snprintf(formato2, sizeof(formato2), "Usuario: %s", colaborador.usuario);
+                snprintf(formato2, sizeof(formato2), "Usuario: %s;", colaborador.usuario);
 
                 if (dadoExiste(formato2, colaborador.usuario, arquivo)) {
                     printf("   %s>>> Esse usuario ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
                     sleep(2);
                     colaborador.usuario[0] = '\0';
                     limparTerm();
+                    printf("\n\n");
                 } else {
                     break;
                 }
@@ -214,10 +216,10 @@ void inserirDadosColab() {
             strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
 
             //Armazena os dados da struct no arquivo
-            fprintf(arquivo, "Nome: %s\n", colaborador.nome);
-            fprintf(arquivo, "Matricula: %s\n", colaborador.matricula);
-            fprintf(arquivo, "Usuario: %s\n", colaborador.usuario);
-            fprintf(arquivo, "Senha: %s\n", colaborador.senha);
+            fprintf(arquivo, "Nome: %s;\n", colaborador.nome);
+            fprintf(arquivo, "Matricula: %s;\n", colaborador.matricula);
+            fprintf(arquivo, "Usuario: %s;\n", colaborador.usuario);
+            fprintf(arquivo, "Senha: %s;\n", colaborador.senha);
             fprintf(arquivo, "\n");
             fprintf(arquivo, "----------------------------------------------");
             fprintf(arquivo, "\n");
@@ -532,7 +534,7 @@ int menuPrincipal() {
 
 /* ====== PROGRAMA ======*/
 int main() {
-    telaLogin();
+    //telaLogin();
     menuPrincipal();
 
     return 0;
