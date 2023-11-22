@@ -153,8 +153,7 @@ void inserirDadosColab() {
 
     limparTerm();
     
-    while (1){   
-
+    while(1) {
         char continuar;
         struct colabs colaborador;
 
@@ -244,7 +243,7 @@ void inserirDadosColab() {
                 limparTerm();
                 printf("   %s>>> Opcao invalida <<<%s", vermelho, limparCor);
                 sleep(2);
-                while (getchar() != '\n');
+                limparBuffer();
             }
         }
         if (toupper(continuar) == 'N'){
@@ -253,6 +252,167 @@ void inserirDadosColab() {
     }
 }
 
+//========================================================================
+void inserirDadosEmpr() {
+
+    limparTerm();
+    
+    while (1){
+        char continuar;
+        struct empresas empresa;
+
+        FILE *arquivo;
+        arquivo = fopen("arqEmpresas.txt", "a+");
+
+        if (arquivo == NULL) {
+            printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
+            sleep(2);
+            break;
+        }
+
+        //solicita ID
+        while(1){
+            printf("   > ID: ");
+            limparBuffer();
+            fgets(empresa.id, sizeof(empresa.id), stdin);
+            empresa.id[strcspn(empresa.id, "\n")] = '\0';
+
+            char formato[TAMANHO_MAX];
+            snprintf(formato, sizeof(formato), "ID: %s", empresa.id);
+
+            if (dadoExiste(formato, empresa.id, arquivo)) {
+                printf("   %s>>> Esse ID ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
+                sleep(2);
+                empresa.id[0] = '\0';
+                limparTerm();
+            } else {
+                break;
+            }
+        }
+            
+        //solicita dados do responsavel
+        printf("   > Nome completo do responsavel: ");
+        fgets(empresa.responsavel, sizeof(empresa.responsavel), stdin);
+        empresa.responsavel[strcspn(empresa.responsavel, "\n")] = '\0';
+
+        printf("   > CPF do responsavel: ");
+        fgets(empresa.cpf, sizeof(empresa.cpf), stdin);
+        empresa.cpf[strcspn(empresa.cpf, "\n")] = '\0';
+
+        //solicita dados da empresa;
+        printf("   > Razao social: ");
+        fgets(empresa.razao, sizeof(empresa.razao), stdin);
+        empresa.razao[strcspn(empresa.razao, "\n")] = '\0';
+
+        printf("   > Nome fantasia: ");
+        fgets(empresa.fantasia, sizeof(empresa.fantasia), stdin);
+        empresa.fantasia[strcspn(empresa.fantasia, "\n")] = '\0';
+        
+        //solicita o CNPJ;
+        while(1){
+            printf("   > CNPJ: ");
+
+            fgets(empresa.cnpj, sizeof(empresa.cnpj), stdin);
+            empresa.cnpj[strcspn(empresa.cnpj, "\n")] = '\0';
+
+            char formato2[TAMANHO_MAX];
+            snprintf(formato2, sizeof(formato2), "CNPJ: %s", empresa.cnpj);
+
+            if (dadoExiste(formato2, empresa.cnpj, arquivo)) {
+                printf("   %s>>> Esse CNPJ ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
+                sleep(2);
+                empresa.cnpj[0] = '\0';
+                limparTerm();
+            } else {
+                break;
+            }
+        }
+
+        printf("   > Data de abertura (dd/mm/aaa): ");
+        fgets(empresa.abertura, sizeof(empresa.abertura), stdin);
+        empresa.abertura[strcspn(empresa.abertura, "\n")] = '\0';
+
+        //solicita o dados de contato;
+        printf("   > Fone: ");
+        fgets(empresa.fone, sizeof(empresa.fone), stdin);
+        empresa.fone[strcspn(empresa.fone, "\n")] = '\0';
+
+        printf("   > E-mail: ");
+        fgets(empresa.email, sizeof(empresa.email), stdin);
+        empresa.email[strcspn(empresa.email, "\n")] = '\0';
+
+        //solicita o endereço;
+        printf("   > Logradouro: ");
+        fgets(empresa.logradouro, sizeof(empresa.logradouro), stdin);
+        empresa.logradouro[strcspn(empresa.logradouro, "\n")] = '\0';
+
+        printf("   > Numero: ");
+        fgets(empresa.numero, sizeof(empresa.numero), stdin);
+        empresa.numero[strcspn(empresa.numero, "\n")] = '\0';
+
+        printf("   > CEP: ");
+        fgets(empresa.cep, sizeof(empresa.cep), stdin);
+        empresa.cep[strcspn(empresa.cep, "\n")] = '\0';
+
+        printf("   > Bairro: ");
+        fgets(empresa.bairro, sizeof(empresa.bairro), stdin);
+        empresa.bairro[strcspn(empresa.bairro, "\n")] = '\0';
+
+        printf("   > Cidade: ");
+        fgets(empresa.cidade, sizeof(empresa.cidade), stdin);
+        empresa.cidade[strcspn(empresa.cidade, "\n")] = '\0';
+
+        printf("   > Estado: ");
+        fgets(empresa.estado, sizeof(empresa.estado), stdin);
+        empresa.estado[strcspn(empresa.estado, "\n")] = '\0';
+
+        //Armazena os dados da struct no arquivo
+        fprintf(arquivo, "ID: %s;\n", empresa.id);
+        fprintf(arquivo, "Resposavel: %s;\n", empresa.responsavel);
+        fprintf(arquivo, "CPF: %s;\n", empresa.cpf);
+        fprintf(arquivo, "Razão social: %s;\n", empresa.razao);
+        fprintf(arquivo, "Nome fantasia: %s;\n", empresa.fantasia);
+        fprintf(arquivo, "CNPJ: %s;\n", empresa.cnpj);
+        fprintf(arquivo, "Data de abertura: %s;\n", empresa.abertura);
+        fprintf(arquivo, "Fone: %s;\n", empresa.fone);
+        fprintf(arquivo, "E-mail: %s;\n", empresa.email);
+        fprintf(arquivo, "Logradouro: %s;\n", empresa.logradouro);
+        fprintf(arquivo, "Numero: %s;\n", empresa.numero);
+        fprintf(arquivo, "CEP: %s;\n", empresa.cep);
+        fprintf(arquivo, "Bairro: %s;\n", empresa.bairro);
+        fprintf(arquivo, "Cidade: %s;\n", empresa.cidade);
+        fprintf(arquivo, "Estado: %s;\n", empresa.estado);
+        fprintf(arquivo, "\n");
+        fprintf(arquivo, "----------------------------------------------");
+        fprintf(arquivo, "\n");
+        
+        fclose(arquivo);
+        limparTerm();
+        printf("\n\n   %s>>> Dados armazenados! <<<%s", verde, limparCor);
+        sleep(2);
+        
+        //Deseja continuar?
+        while (1){
+            limparTerm();
+            printf("   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
+            scanf("%c", &continuar);
+            
+            if (toupper(continuar) == 'S' || toupper(continuar) == 'N'){
+                limparTerm();
+                break;          
+            } else {
+                limparTerm();
+                printf("   %s>>> Opcao invalida <<<%s", vermelho, limparCor);
+                sleep(2);
+                limparBuffer();
+            }
+        }
+        if (toupper(continuar) == 'N'){
+            break;
+        }
+    }
+}
+//========================================================================
 
 void telaLogin() {
     char usrAdm[31] = "adm";
@@ -446,7 +606,7 @@ int menuEmpresas() {
             limparTerm();
             break;
         } else if (opcao == 1){  // Cadastrar empresa
-            /*code*/
+            inserirDadosEmpr();
             sleep(2);
         }else if (opcao == 2){  // Lista de empresas
             /*code*/

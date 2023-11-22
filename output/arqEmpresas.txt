@@ -1,0 +1,17 @@
+ID: 1;
+Resposavel: menezes mano;
+CPF: 123.456.456;
+Razão social: -21;
+Nome fantasia: menezes;
+CNPJ: 159487263111;
+Data de abertura: 11/11/2023;
+Fone: ;
+E-mail: menezes@gmail.com;
+Logradouro: Rua bica;
+Numero: 22;
+CEP: 12544-200;
+Bairro: lapa;
+Cidade: sao paulo;
+Estado: sp;
+
+----------------------------------------------
