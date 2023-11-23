@@ -647,7 +647,6 @@ int menuColaboradores() {
         }else if (opcao == 3){  // Remover usuario
             limparTerm();
             printf("\n\n");
-            int selecao;
             printf("   > Digite a matricula para REMOVER: ");
             sleep(2);
         } else {
