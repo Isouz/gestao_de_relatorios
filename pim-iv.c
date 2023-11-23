@@ -475,12 +475,11 @@ void telaLogin() {
 }
 
 
-void lerArquivo(char *Arquivo, char *textoIgnerado) {
+void lerArquivo(char *Arquivo, char *textoIgnorado) {
+    //Lê o arquivo, usa dois paramentros: nome do arquivo e o texto a ignorar
     limparTerm();
 
     FILE *arquivo;
-    char caractere;
-
     arquivo = fopen(Arquivo, "r");
 
     if (arquivo == NULL) {
@@ -490,7 +489,7 @@ void lerArquivo(char *Arquivo, char *textoIgnerado) {
         char linha[TAMANHO_MAX];
 
         while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-            if(strncmp(linha, textoIgnerado, 7) == 0) {
+            if(strncmp(linha, textoIgnorado, 7) == 0) {
                 continue;
             } else {
                 printf("%s", linha);
@@ -506,6 +505,11 @@ void lerArquivo(char *Arquivo, char *textoIgnerado) {
     }
 }
 
+
+
+void excluirDados(int *qntLinhas, char *Arquivo) {
+	/*codigo*/
+}
 
 /* ====== DESENHAR MENUS ======*/
 void desenhaMenuPrinc() {
@@ -677,6 +681,8 @@ int menuColaboradores() {
             lerArquivo("arqUsuarios.txt","Senha: ");
         }else if (opcao == 3){  // Remover usuario
             //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
+
+            //excluirDados(6, "arqUsuarios.txt")
             limparTerm();
             printf("\n\n");
             printf("   > Digite a matricula para REMOVER: ");
