@@ -475,6 +475,32 @@ void telaLogin() {
 }
 
 
+void lerArquivo(char *Arquivo) {
+    limparTerm();
+
+    FILE *arquivo;
+    char caractere;
+
+    arquivo = fopen(Arquivo, "r");
+
+    if (arquivo == NULL) {
+        printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
+        sleep(2);
+    } else {
+        while ((caractere = fgetc(arquivo)) != EOF) {
+            printf("%c", caractere);
+        }
+
+        fclose(arquivo);
+
+        printf("\n\n   %s> ", verde);
+        system("pause");
+        printf("%s", limparCor);
+        limparTerm();
+    }
+}
+
+
 /* ====== DESENHAR MENUS ======*/
 void desenhaMenuPrinc() {
     limparTerm();
@@ -644,8 +670,7 @@ int menuColaboradores() {
         } else if (opcao == 1){  // Cadastrar usuario       
             inserirDadosColab();
         }else if (opcao == 2){  // Lista de usuarios
-            /*code*/
-            sleep(2);
+            lerArquivo("arqUsuarios.txt");
         }else if (opcao == 3){  // Remover usuario
             //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
             limparTerm();
