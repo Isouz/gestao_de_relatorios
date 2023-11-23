@@ -160,17 +160,13 @@ void inserirDadosColab() {
         FILE *arquivo;
         arquivo = fopen("arqUsuarios.txt", "a+");
 
+        printf("\n\n");
         if (arquivo == NULL) {
             printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
             sleep(2);
             break;
         }
-
-        //solicita nome
-        printf("\n   > Nome completo: ");
         limparBuffer();
-        fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
-        colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
 
         //solicita matricula
         while(1){
@@ -191,7 +187,12 @@ void inserirDadosColab() {
                 break;
             }
         }
-            
+
+        //solicita nome
+        printf("\n   > Nome completo: ");
+        fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
+        colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
+
         //solicita usuario
         while(1){
             printf("   > Defina um usuario: ");
@@ -217,8 +218,8 @@ void inserirDadosColab() {
         strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
 
         //Armazena os dados da struct no arquivo
-        fprintf(arquivo, "Nome: %s;\n", colaborador.nome);
         fprintf(arquivo, "Matricula: %s;\n", colaborador.matricula);
+        fprintf(arquivo, "Nome: %s;\n", colaborador.nome);
         fprintf(arquivo, "Usuario: %s;\n", colaborador.usuario);
         fprintf(arquivo, "Senha: %s\n", colaborador.senha);
         fprintf(arquivo, "\n");
@@ -252,7 +253,7 @@ void inserirDadosColab() {
     }
 }
 
-//========================================================================
+
 void inserirDadosEmpr() {
 
     limparTerm();
@@ -412,7 +413,7 @@ void inserirDadosEmpr() {
         }
     }
 }
-//========================================================================
+
 
 void telaLogin() {
     char usrAdm[31] = "adm";
@@ -573,16 +574,16 @@ int menuRelatorios() {
         }else if (opcao == 2){  // Exibir/Baixar relatorio
             limparTerm();
             printf("\n\n");
-            int selecao;
-            /*Criar uma função para exibir os ids, nomes das emrpesas e data de modificação*/
+            /*Code*/
             printf("   > Digite o id do relatorio para EXIBIR: ");
             sleep(2);
         }else if (opcao == 3){  // Excluir relatorio 
+            //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
             limparTerm();
             printf("\n\n");
-            int selecao;
             printf("   > Digite o id do relatorio para REMOVER: ");
             sleep(2);
+            //====A FUNÇAO DE EXCLUSÃO VEM AQUI===^^^^================================
         } else {
             limparTerm();
             printf("\n\n\n");
@@ -612,11 +613,12 @@ int menuEmpresas() {
             /*code*/
             sleep(2);
         }else if (opcao == 3){  // Remover empresa
+            //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
             limparTerm();
             printf("\n\n");
-            int selecao;
-            printf("   > Digite o CNPJ para REMOVER: ");
+            printf("   > Digite o ID para REMOVER: ");
             sleep(2);
+            //====A FUNÇAO DE EXCLUSÃO VEM AQUI===^^^^================================
         } else {
             limparTerm();
             printf("\n\n\n");
@@ -645,10 +647,12 @@ int menuColaboradores() {
             /*code*/
             sleep(2);
         }else if (opcao == 3){  // Remover usuario
+            //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
             limparTerm();
             printf("\n\n");
             printf("   > Digite a matricula para REMOVER: ");
             sleep(2);
+            //====A FUNÇAO DE EXCLUSÃO VEM AQUI===^^^^================================
         } else {
             limparTerm();
             printf("\n\n\n");
