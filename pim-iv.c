@@ -269,11 +269,11 @@ void inserirDadosEmpr() {
             sleep(2);
             break;
         }
+        limparBuffer();
 
         //solicita ID
         while(1){
             printf("   > ID: ");
-            limparBuffer();
             fgets(empresa.id, sizeof(empresa.id), stdin);
             empresa.id[strcspn(empresa.id, "\n")] = '\0';
 
@@ -282,6 +282,9 @@ void inserirDadosEmpr() {
 
             if (dadoExiste(formato, empresa.id, arquivo)) {
                 printf("   %s>>> Esse ID ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
+                ///=====DEBUG===============
+                printf("procurei formato: %s e ID: %s\n", formato, empresa.id);
+                ///=====DEBUG===============
                 sleep(2);
                 empresa.id[0] = '\0';
                 limparTerm();

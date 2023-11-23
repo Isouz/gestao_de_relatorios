@@ -15,3 +15,71 @@ Cidade: sao paulo;
 Estado: sp;
 
 ----------------------------------------------
+ID: 2;
+Resposavel: maria da silva;
+CPF: 123.321.632;
+Raz찾o social: -20;
+Nome fantasia: ambientais ;
+CNPJ: 1544213545;
+Data de abertura: 11/11/2011;
+Fone: ;
+E-mail: ambientais@gmail.com;
+Logradouro: R joao armando;
+Numero: 2;
+CEP: 12115-010;
+Bairro: jd armando;
+Cidade: rio branco;
+Estado: acre;
+
+----------------------------------------------
+ID: 3;
+Resposavel: Teste1;
+CPF: 213213215;
+Raz찾o social: Testando valida눯o I;
+Nome fantasia: D1;
+CNPJ: 264546848645;
+Data de abertura: 11/10/1999;
+Fone: ;
+E-mail: testandoid1@gmail.com;
+Logradouro: testando1;
+Numero: 1;
+CEP: 1111111111;
+Bairro: 1;
+Cidade: palmas;
+Estado: tocantins;
+
+----------------------------------------------
+ID: 4;
+Resposavel: Testando validacao id 1;
+CPF: 22222222222;
+Raz찾o social: 222222;
+Nome fantasia: 222222222222222222;
+CNPJ: 2222222222222222;
+Data de abertura: 22/02/2022;
+Fone: ;
+E-mail: testandovalida눯oid2@gmail.com;
+Logradouro: ;
+Numero: 2;
+CEP: 2222222222;
+Bairro: 2;
+Cidade: Curitiba;
+Estado: Parana;
+
+----------------------------------------------
+ID: 6;
+Resposavel: testando validacao id 3;
+CPF: 33333333333;
+Raz찾o social: 3333;
+Nome fantasia: testando 3;
+CNPJ: 333333333333;
+Data de abertura: 30/03/1993;
+Fone: ;
+E-mail: testando3@gmail.com;
+Logradouro: tres;
+Numero: 3;
+CEP: 33333333-3;
+Bairro: 3;
+Cidade: fortaleza;
+Estado: ceara;
+
+----------------------------------------------
