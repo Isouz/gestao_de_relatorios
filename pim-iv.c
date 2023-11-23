@@ -645,22 +645,11 @@ int menuColaboradores() {
             /*code*/
             sleep(2);
         }else if (opcao == 3){  // Remover usuario
-            void excluirColaboradorPorMatricula(struct Colaborador colaboradores[], int *numColaboradores, int matricula) {
-            int i, j;
-            for (i = 0; i < *numColaboradores; ++i) {
-            if (colaboradores[i].matricula == matricula) {
-            // Desloque os colaboradores restantes para preencher o espaço do colaborador excluído
-            for (j = i; j < *numColaboradores - 1; ++j) {
-                colaboradores[j] = colaboradores[j + 1];
-            }
-            (*numColaboradores)--;
-            printf("Colaborador com Matrícula %d excluído com sucesso.\n", matricula);
-            return;
-        }
-    }
-
-    printf("Colaborador com Matrícula %d não encontrado.\n", matricula);
-}
+            limparTerm();
+            printf("\n\n");
+            int selecao;
+            printf("   > Digite a matricula para REMOVER: ");
+            sleep(2);
         } else {
             limparTerm();
             printf("\n\n\n");
