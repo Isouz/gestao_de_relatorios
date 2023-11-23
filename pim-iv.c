@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <ctype.h>
 
-#define TAMANHO_MAX 41
+#define TAMANHO_MAX 61
 
 /* ====== STRUCTS ======*/
 struct colabs {
@@ -371,7 +371,7 @@ void inserirDadosEmpr() {
         fprintf(arquivo, "ID: %s;\n", empresa.id);
         fprintf(arquivo, "Resposavel: %s;\n", empresa.responsavel);
         fprintf(arquivo, "CPF: %s;\n", empresa.cpf);
-        fprintf(arquivo, "Razão social: %s;\n", empresa.razao);
+        fprintf(arquivo, "Razao social: %s;\n", empresa.razao);
         fprintf(arquivo, "Nome fantasia: %s;\n", empresa.fantasia);
         fprintf(arquivo, "CNPJ: %s;\n", empresa.cnpj);
         fprintf(arquivo, "Data de abertura: %s;\n", empresa.abertura);
@@ -475,7 +475,7 @@ void telaLogin() {
 }
 
 
-void lerArquivo(char *Arquivo) {
+void lerArquivo(char *Arquivo, char *textoIgnerado) {
     limparTerm();
 
     FILE *arquivo;
@@ -487,8 +487,14 @@ void lerArquivo(char *Arquivo) {
         printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
         sleep(2);
     } else {
-        while ((caractere = fgetc(arquivo)) != EOF) {
-            printf("%c", caractere);
+        char linha[TAMANHO_MAX];
+
+        while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+            if(strncmp(linha, textoIgnerado, 7) == 0) {
+                continue;
+            } else {
+                printf("%s", linha);
+            }
         }
 
         fclose(arquivo);
@@ -634,10 +640,8 @@ int menuEmpresas() {
             break;
         } else if (opcao == 1){  // Cadastrar empresa
             inserirDadosEmpr();
-            sleep(2);
         }else if (opcao == 2){  // Lista de empresas
-            /*code*/
-            sleep(2);
+            lerArquivo("arqEmpresas.txt","");
         }else if (opcao == 3){  // Remover empresa
             //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
             limparTerm();
@@ -670,7 +674,7 @@ int menuColaboradores() {
         } else if (opcao == 1){  // Cadastrar usuario       
             inserirDadosColab();
         }else if (opcao == 2){  // Lista de usuarios
-            lerArquivo("arqUsuarios.txt");
+            lerArquivo("arqUsuarios.txt","Senha: ");
         }else if (opcao == 3){  // Remover usuario
             //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
             limparTerm();
