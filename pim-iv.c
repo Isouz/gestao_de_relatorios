@@ -16,20 +16,20 @@ struct colabs {
 
 struct empresas {
     char id[6];
-    char responsavel[51];
-    char cpf[12];
-    char razao[21];
-    char fantasia[21];
+    char responsavel[41];
+    char cpf[16];
+    char razao[41];
+    char fantasia[41];
     char cnpj[21];
-    char abertura[11];
-    char fone[16];
-    char email[31];
-    char logradouro[41];
+    char abertura[15];
+    char fone[21];
+    char email[51];
+    char logradouro[51];
     char numero[6];
     char cep[11];
-    char bairro[31];
+    char bairro[51];
     char cidade[31];
-    char estado[31];
+    char estado[21];
 };
 
 
@@ -282,9 +282,6 @@ void inserirDadosEmpr() {
 
             if (dadoExiste(formato, empresa.id, arquivo)) {
                 printf("   %s>>> Esse ID ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
-                ///=====DEBUG===============
-                printf("procurei formato: %s e ID: %s\n", formato, empresa.id);
-                ///=====DEBUG===============
                 sleep(2);
                 empresa.id[0] = '\0';
                 limparTerm();

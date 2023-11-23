@@ -83,3 +83,122 @@ Cidade: fortaleza;
 Estado: ceara;
 
 ----------------------------------------------
+ID: 5;
+Resposavel: joao paulo;
+CPF: 12345566854;
+Raz√£o social: -66;
+Nome fantasia: pa;
+CNPJ: 159487263112;
+Data de abertura: 12/02/1995;
+Fone: ;
+E-mail: asssa@gmail.com;
+Logradouro: Av paulo;
+Numero: 55;
+CEP: 55464-585;
+Bairro: paulo;
+Cidade: Joao Pessoa;
+Estado: Paraiba;
+
+----------------------------------------------
+ID: 7;
+Resposavel: Teste validaá∆o de CNPJ 2;
+CPF: 12345621466;
+Raz√£o social: ;
+Nome fantasia: testeCNPJ2;
+CNPJ: 159487263113;
+Data de abertura: 03/03/2003;
+Fone: ;
+E-mail: cnpj3@gmail.com;
+Logradouro: R santana;
+Numero: 15;
+CEP: 15454488;
+Bairro: ds;
+Cidade: Porto Alegre;
+Estado: Rio Grande do Sul;
+
+----------------------------------------------
+ID: 8;
+Resposavel: Teste de CNPJ 3;
+CPF: 12314455152;
+Raz√£o social: ;
+Nome fantasia: Teste cnpj3;
+CNPJ: 159487263114;
+Data de abertura: 11/11/2011;
+Fone: ;
+E-mail: ttststts@gagag.com;
+Logradouro: r jose;
+Numero: 45;
+CEP: 1223211-55;
+Bairro: ;
+Cidade: Campo Grande;
+Estado: Mato Grosso;
+
+----------------------------------------------
+ID: 9;
+Resposavel: Joao Palmeiras;
+CPF: 154.654.963-15;
+Raz√£o social: incorporadora ambientais sa;
+Nome fantasia: ambientais;
+CNPJ: 55.292.125/0001-24;
+Data de abertura: 15/07/2019;
+Fone: ;
+E-mail: ambientais.contato@hotmail.com;
+Logradouro: ;
+Numero: 2;
+CEP: 02175-96;
+Bairro: Santo Amaro;
+Cidade: Sao Paulo;
+Estado: SP;
+
+----------------------------------------------
+ID: 10;
+Resposavel: Sergio Liegen;
+CPF: 123.654.321-98;
+Raz√£o social: Huiwue;
+Nome fantasia: Huiwue;
+CNPJ: 54.707.297/0001-59;
+Data de abertura: 23/11/2023;
+Fone: (69) 99965-2774;
+E-mail: ;
+Logradouro: Avenida Jar£;
+Numero: 818;
+CEP: 76870-765;
+Bairro: BNH;
+Cidade: Ariquemes;
+Estado: RO;
+
+----------------------------------------------
+ID: 11;
+Resposavel: Marcelo Lucca Severino Rezende;
+CPF: 790.503.410-04;
+Raz√£o social: Marcelo Lucca Severino Rezende ME;
+Nome fantasia: Marcelo Lucca Severino Rezende;
+CNPJ:  ME;
+Data de abertura: 06/09/1968;
+Fone: (61) 99905-5478;
+E-mail: marcelo_lucca_rezende@yahho.com.br;
+Logradouro: Quadra Quadra 171;
+Numero: 677;
+CEP: 72833-671;
+Bairro: Parque Desportivo Bras°lia (Ro;
+Cidade: osevelt);
+Estado: GO;
+
+----------------------------------------------
+ID: 12;
+Resposavel: Maite de Santana Rodrigues;
+CPF: 159.632.874-98;
+Raz√£o social: Maità e Larissa Eletrìnica ME;
+Nome fantasia: Maità e Larissa Eletrìnica;
+CNPJ: 35.769.955/0001-92;
+Data de abertura: 12/12/2018;
+Fone: (11) 2652-1780;
+E-mail: marketing@maiteelarissaeletronicame.com.;
+Logradouro: br;
+Numero: 257;
+CEP: 09090-330;
+Bairro: Vila Alpina;
+Cidade: Santo AndrÇ;
+Estado: SP;
+
+----------------------------------------------
