@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <ctype.h>
 
-#define TAMANHO_MAX 61
+#define TAMANHO_MAX 81
 
 /* ====== STRUCTS ======*/
 struct colabs {
@@ -16,19 +16,19 @@ struct colabs {
 
 struct empresas {
     char id[6];
-    char responsavel[41];
+    char responsavel[TAMANHO_MAX];
     char cpf[16];
-    char razao[41];
-    char fantasia[41];
+    char razao[TAMANHO_MAX];
+    char fantasia[TAMANHO_MAX];
     char cnpj[21];
     char abertura[15];
     char fone[21];
-    char email[51];
-    char logradouro[51];
+    char email[TAMANHO_MAX];
+    char logradouro[TAMANHO_MAX];
     char numero[6];
     char cep[11];
-    char bairro[51];
-    char cidade[31];
+    char bairro[TAMANHO_MAX];
+    char cidade[51];
     char estado[21];
 };
 
@@ -274,7 +274,7 @@ void inserirDadosEmpr() {
 
         //solicita ID
         while(1){
-            printf("   > ID: ");
+            printf("\n\n   > ID: ");
             fgets(empresa.id, sizeof(empresa.id), stdin);
             empresa.id[strcspn(empresa.id, "\n")] = '\0';
 
@@ -506,9 +506,61 @@ void lerArquivo(char *Arquivo, char *textoIgnorado) {
 }
 
 
+void excluirDados(char *Arquivo, int *quantidadeLinhas, char *referencia) {
+	//Exclui dados do arquivo, usa três parâmetros: nome do arquivo, a quantidade de linhas que será excluida e referencia (matricula, ID)
+    limparTerm();
 
-void excluirDados(int *qntLinhas, char *Arquivo) {
-	/*codigo*/
+    FILE *arquivo;
+    arquivo = fopen(Arquivo, "r");
+    FILE *temp;
+    temp = fopen("temp.txt", "w");
+
+    if (arquivo == NULL || temp == NULL) {
+        printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
+        sleep(2);
+    } else {
+        char dadoInformado[21];
+        char linha[TAMANHO_MAX];
+
+        printf("\n\n   > Digite a %s para REMOVER: ", referencia);
+        scanf("%s", &dadoInformado);
+
+        char formato[34];
+        snprintf(formato, sizeof(formato), "%s: %s;", referencia, dadoInformado); //Moodifica o formato que será buscado
+
+        if(dadoExiste(formato, dadoInformado, arquivo)) {
+            while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+                if (strstr(linha, dadoInformado) == NULL) {  // Verifica se a linha contém a matrícula a ser removida
+                    fprintf(temp, "%s", linha); // Se não contém, escreve a linha no arquivo temporário
+                } else {
+                    for (int i = 0; i < quantidadeLinhas; ++i) { //// Se não contém, apaga as linhas do arquivo temporário
+                        if (fgets(linha, sizeof(linha), arquivo) == NULL) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            fclose(arquivo);
+            fclose(temp);
+                             
+            remove(Arquivo);   // Remove o arquivo original
+            rename("temp.txt", Arquivo); // renomeia o temporário
+
+            limparTerm();
+            printf("\n\n   %s>>> Dados removidos com sucesso! <<<.%s\n", verde, limparCor);
+            sleep(2);
+        } else {
+            printf("\n\n   %s>>> %s nao encontrada! <<<.%s\n", amarelo, referencia, limparCor);
+            sleep(2);
+            dadoInformado[0] = '\0';
+            fclose(arquivo);
+            fclose(temp);
+            remove(temp);
+            limparBuffer();
+            limparTerm();
+        }
+    }
 }
 
 /* ====== DESENHAR MENUS ======*/
@@ -647,12 +699,7 @@ int menuEmpresas() {
         }else if (opcao == 2){  // Lista de empresas
             lerArquivo("arqEmpresas.txt","");
         }else if (opcao == 3){  // Remover empresa
-            //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
-            limparTerm();
-            printf("\n\n");
-            printf("   > Digite o ID para REMOVER: ");
-            sleep(2);
-            //====A FUNÇAO DE EXCLUSÃO VEM AQUI===^^^^================================
+            excluirDados("arqEmpresas.txt", 16, "ID");
         } else {
             limparTerm();
             printf("\n\n\n");
@@ -680,14 +727,7 @@ int menuColaboradores() {
         }else if (opcao == 2){  // Lista de usuarios
             lerArquivo("arqUsuarios.txt","Senha: ");
         }else if (opcao == 3){  // Remover usuario
-            //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
-
-            //excluirDados(6, "arqUsuarios.txt")
-            limparTerm();
-            printf("\n\n");
-            printf("   > Digite a matricula para REMOVER: ");
-            sleep(2);
-            //====A FUNÇAO DE EXCLUSÃO VEM AQUI===^^^^================================
+            excluirDados("arqUsuarios.txt", 5, "Matricula");
         } else {
             limparTerm();
             printf("\n\n\n");
