@@ -42,7 +42,10 @@ char limparCor[6] = "\033[m";
 
 
 /* ====== FERRAMENTAS ======*/
-void limparTerm() {  //Limpa o terminal com base no SO
+void limparTerm() { 
+    /*
+    Limpa o terminal com base no Sistema Operacional.
+    */
     #ifdef _WIN32
         system("cls"); //Limpa terminal Windows
     #else
@@ -51,7 +54,11 @@ void limparTerm() {  //Limpa o terminal com base no SO
 }
 
 
-void limparBuffer() { // Limpa o buffer de entrada para evitar loop infinito
+void limparBuffer() {
+    /*
+    Limpa o buffer de entrada para evitar loop infinito
+    */
+
     while (getchar() != '\n');
 }
 
@@ -62,6 +69,9 @@ void linhaVazia(char cor[8]){
 
 
 char *comparaSenhas() {
+    /*
+    Solicita duas senhas ao usuário e valida. Se as senhas fornecidas estiverem diferentes ele emite a informação e solicita novas senhas. Se os dados inseridos são iguais ele retorna a senha e segue o fluxo do programa.
+    */
 
     struct colabs *colaborador;
     char senha1[31];
@@ -133,12 +143,23 @@ char *comparaSenhas() {
 
 
 int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
+    /*
+    Verifica se determinada informação existe dentro de determinado aquivo. 
+    Usa três parametros:
+
+    - formato: O formato em que aquela informação está no arquivo, exemplo: "Matricula: ;";
+    - dadoProcurado: o que será buscado no aqruivo, exemplo: m123;
+    - Arquivo: nome do arquivo em que a busca será realizada.
+
+    Exemplo: dadoExiste(formato, colaborador.matricula, arquivo);
+    Obs: necessario declarar o formato antes.
+    */
     char linhaArquivo[TAMANHO_MAX];
 
     while (fgets(linhaArquivo, sizeof(linhaArquivo), Arquivo) != NULL) {
         linhaArquivo[strcspn(linhaArquivo, "\n")] = '\0';
 
-        // Comparar a matrícula procurada com a matrícula na linha do arquivo
+        // Comparar o dado procurado com o dado na linha do arquivo
         if (strstr(linhaArquivo, formato) != NULL && strstr(linhaArquivo, dadoProcurado) != NULL) {
             rewind(Arquivo); //coloca o cursor no inicio do arquivo
             return 1;  // Se o dado foi encontrato
@@ -150,6 +171,9 @@ int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
 
 
 void inserirDadosColab() {
+    /*
+    Usados para inserir dados no arquivo de colaboradores
+    */
 
     limparTerm();
     
@@ -255,7 +279,9 @@ void inserirDadosColab() {
 
 
 void inserirDadosEmpr() {
-
+    /*
+    Usados para inserir dados no arquivo de empresas
+    */
     limparTerm();
     
     while (1){
@@ -476,7 +502,13 @@ void telaLogin() {
 
 
 void lerArquivo(char *Arquivo, char *textoIgnorado) {
-    //Lê o arquivo, usa dois paramentros: nome do arquivo e o texto a ignorar
+    /*
+    Lê o arquivo. 
+    Usa dois paramentros: 
+    
+    - Arquivo: nome do arquivo que será lido;
+    - TextoIgnorado: Se houver algum texto dentro do arquivo que não deve ser lido inserimos neste parametro. Caso não seja necessario ignorar algum texto, basta usar aspas vazias, exemplo: lerArquivo("arqEmpresas.txt","");
+    */
     limparTerm();
 
     FILE *arquivo;
@@ -507,7 +539,16 @@ void lerArquivo(char *Arquivo, char *textoIgnorado) {
 
 
 void excluirDados(char *Arquivo, int *quantidadeLinhas, char *referencia) {
-	//Exclui dados do arquivo, usa três parâmetros: nome do arquivo, a quantidade de linhas que será excluida e referencia (matricula, ID)
+	/*
+    Exclui dados do arquivo, utiliza três parâmetros:
+
+    - nome do arquivo; 
+    - a quantidade de linhas que será excluida; 
+    - referência ("Matricula: ", "ID: ").
+
+    Exemplo: excluirDados("arqUsuarios.txt", 5, "Matricula");
+    */
+
     limparTerm();
 
     FILE *arquivo;
@@ -530,12 +571,12 @@ void excluirDados(char *Arquivo, int *quantidadeLinhas, char *referencia) {
 
         if(dadoExiste(formato, dadoInformado, arquivo)) {
             while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-                if (strstr(linha, dadoInformado) == NULL) {  // Verifica se a linha contém a matrícula a ser removida
+                if (strstr(linha, formato) == NULL) {  // Verifica se a linha contém o dado a ser removida
                     fprintf(temp, "%s", linha); // Se não contém, escreve a linha no arquivo temporário
-                } else {
-                    for (int i = 0; i < quantidadeLinhas; ++i) { //// Se não contém, apaga as linhas do arquivo temporário
-                        if (fgets(linha, sizeof(linha), arquivo) == NULL) {
-                            break;
+                } else {   
+                    for (int i = 0; i < quantidadeLinhas; ++i) { 
+                        if (fgets(linha, sizeof(linha), arquivo) == NULL) { 
+                            break;  // Se contém, pula as linhas para não escrever no arquivo temporario
                         }
                     }
                 }
