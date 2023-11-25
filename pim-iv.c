@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <unistd.h>
 #include <ctype.h>
+#include <stdarg.h>
 
 #define TAMANHO_MAX 81
 
@@ -65,6 +66,56 @@ void limparBuffer() {
 
 void linhaVazia(char cor[8]){
     printf("   %s|                                           |%s\n", cor, limparCor);
+}
+
+
+void fprintfCrip(FILE *stream, const char *format, ...) {
+    /*
+    Função muito simular com a função fprint(). Ela imprime informações no arquivo, com a vantagem de usar uma criptografia de César com rotação de 12 caracteres.
+    */
+    va_list args;
+    va_start(args, format);
+
+    char buffer[1000];  
+    vsnprintf(buffer, sizeof(buffer), format, args);
+
+    // Criptografia de César com rotação de 12 caracteres
+    for (int i = 0; i < strlen(buffer); ++i) {
+        if (isalpha(buffer[i])) {
+            char base = isupper(buffer[i]) ? 'A' : 'a';
+            buffer[i] = (buffer[i] - base + 12) % 26 + base;
+        }
+    }
+
+    // Escreve os dados criptografados no arquivo
+    fwrite(buffer, sizeof(char), strlen(buffer), stream);
+
+    va_end(args);
+}
+
+
+void printfDecrip(const char *format, ...) {
+    /*
+    Função usada para decriptografar o texto que foi inserido no arquivo com o auxilio da função fprintfCrip(), ela decriptograda a informação do arquivo e imprime na tela. Usa uma rotação de -12 caracteres (inversa da criptografia).
+    */
+    va_list args;
+    va_start(args, format);
+
+    char buffer[TAMANHO_MAX];
+    vsnprintf(buffer, sizeof(buffer), format, args);
+
+    // Descriptografa o arquivo
+    for (int i = 0; i < strlen(buffer); ++i) {
+        if (isalpha(buffer[i])) {
+            char base = isupper(buffer[i]) ? 'A' : 'a';
+            buffer[i] = (buffer[i] - base - 12 + 26) % 26 + base;
+        }
+    }
+
+    // Exibe o texto
+    printf("%s", buffer);
+
+    va_end(args);
 }
 
 
