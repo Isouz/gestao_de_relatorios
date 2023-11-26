@@ -94,28 +94,27 @@ void fprintfCrip(FILE *stream, const char *format, ...) {
 }
 
 
-void printfDecrip(const char *format, ...) {
+char* decriptar(const char *textoCriptografado) {
     /*
-    Função usada para decriptografar o texto que foi inserido no arquivo com o auxilio da função fprintfCrip(), ela decriptograda a informação do arquivo e imprime na tela. Usa uma rotação de -12 caracteres (inversa da criptografia).
+    Função usada para decriptografar um texto. Usa uma rotação de -12 caracteres (inversa da criptografia). Retorna a mensagem decriotografado ma sem imprimir na tela.
+    Usa um parametro: 
+    - textoCriptografado: mensagem criptografada.
     */
-    va_list args;
-    va_start(args, format);
+    char *textoDecriptado = malloc(strlen(textoCriptografado) + 1);  // Aloca espaço para a mensagem descriptografada
 
-    char buffer[TAMANHO_MAX];
-    vsnprintf(buffer, sizeof(buffer), format, args);
-
-    // Descriptografa o arquivo
-    for (int i = 0; i < strlen(buffer); ++i) {
-        if (isalpha(buffer[i])) {
-            char base = isupper(buffer[i]) ? 'A' : 'a';
-            buffer[i] = (buffer[i] - base - 12 + 26) % 26 + base;
+    // Descriptografia de César com rotação de -12 caracteres (inversa da criptografia)
+    for (int i = 0; i < strlen(textoCriptografado); ++i) {
+        if (isalpha(textoCriptografado[i])) {
+            char base = isupper(textoCriptografado[i]) ? 'A' : 'a';
+            textoDecriptado[i] = (textoCriptografado[i] - base - 12 + 26) % 26 + base;
+        } else {
+            textoDecriptado[i] = textoCriptografado[i];
         }
     }
 
-    // Exibe o texto
-    printf("%s", buffer);
+    textoDecriptado[strlen(textoCriptografado)] = '\0';  // Adiciona o caractere nulo ao final da string
 
-    va_end(args);
+    return textoDecriptado;
 }
 
 
@@ -202,7 +201,7 @@ int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
     - dadoProcurado: o que será buscado no aqruivo, exemplo: m123;
     - Arquivo: nome do arquivo em que a busca será realizada.
 
-    Exemplo: dadoExiste(formato, colaborador.matricula, arquivo);
+    Exemplo de uso: dadoExiste(formato, colaborador.matricula, arquivo);
     Obs: necessario declarar o formato antes.
     */
     char linhaArquivo[TAMANHO_MAX];
@@ -211,7 +210,7 @@ int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
         linhaArquivo[strcspn(linhaArquivo, "\n")] = '\0';
 
         // Comparar o dado procurado com o dado na linha do arquivo
-        if (strstr(linhaArquivo, formato) != NULL && strstr(linhaArquivo, dadoProcurado) != NULL) {
+        if (strstr(decriptar(linhaArquivo), formato) != NULL && strstr(decriptar(linhaArquivo), dadoProcurado) != NULL) {
             rewind(Arquivo); //coloca o cursor no inicio do arquivo
             return 1;  // Se o dado foi encontrato
         }
@@ -293,13 +292,13 @@ void inserirDadosColab() {
         strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
 
         //Armazena os dados da struct no arquivo
-        fprintf(arquivo, "Matricula: %s;\n", colaborador.matricula);
-        fprintf(arquivo, "Nome: %s;\n", colaborador.nome);
-        fprintf(arquivo, "Usuario: %s;\n", colaborador.usuario);
-        fprintf(arquivo, "Senha: %s\n", colaborador.senha);
-        fprintf(arquivo, "\n");
-        fprintf(arquivo, "----------------------------------------------");
-        fprintf(arquivo, "\n");
+        fprintfCrip(arquivo, "Matricula: %s;\n", colaborador.matricula);
+        fprintfCrip(arquivo, "Nome: %s;\n", colaborador.nome);
+        fprintfCrip(arquivo, "Usuario: %s;\n", colaborador.usuario);
+        fprintfCrip(arquivo, "Senha: %s\n", colaborador.senha);
+        fprintfCrip(arquivo, "\n");
+        fprintfCrip(arquivo, "----------------------------------------------");
+        fprintfCrip(arquivo, "\n");
         
         fclose(arquivo);
         printf("\n\n   %s>>> Dados armazenados! <<<%s", verde, limparCor);
@@ -445,24 +444,24 @@ void inserirDadosEmpr() {
         empresa.estado[strcspn(empresa.estado, "\n")] = '\0';
 
         //Armazena os dados da struct no arquivo
-        fprintf(arquivo, "ID: %s;\n", empresa.id);
-        fprintf(arquivo, "Resposavel: %s;\n", empresa.responsavel);
-        fprintf(arquivo, "CPF: %s;\n", empresa.cpf);
-        fprintf(arquivo, "Razao social: %s;\n", empresa.razao);
-        fprintf(arquivo, "Nome fantasia: %s;\n", empresa.fantasia);
-        fprintf(arquivo, "CNPJ: %s;\n", empresa.cnpj);
-        fprintf(arquivo, "Data de abertura: %s;\n", empresa.abertura);
-        fprintf(arquivo, "Fone: %s;\n", empresa.fone);
-        fprintf(arquivo, "E-mail: %s;\n", empresa.email);
-        fprintf(arquivo, "Logradouro: %s;\n", empresa.logradouro);
-        fprintf(arquivo, "Numero: %s;\n", empresa.numero);
-        fprintf(arquivo, "CEP: %s;\n", empresa.cep);
-        fprintf(arquivo, "Bairro: %s;\n", empresa.bairro);
-        fprintf(arquivo, "Cidade: %s;\n", empresa.cidade);
-        fprintf(arquivo, "Estado: %s;\n", empresa.estado);
-        fprintf(arquivo, "\n");
-        fprintf(arquivo, "----------------------------------------------");
-        fprintf(arquivo, "\n");
+        fprintfCrip(arquivo, "ID: %s;\n", empresa.id);
+        fprintfCrip(arquivo, "Resposavel: %s;\n", empresa.responsavel);
+        fprintfCrip(arquivo, "CPF: %s;\n", empresa.cpf);
+        fprintfCrip(arquivo, "Razao social: %s;\n", empresa.razao);
+        fprintfCrip(arquivo, "Nome fantasia: %s;\n", empresa.fantasia);
+        fprintfCrip(arquivo, "CNPJ: %s;\n", empresa.cnpj);
+        fprintfCrip(arquivo, "Data de abertura: %s;\n", empresa.abertura);
+        fprintfCrip(arquivo, "Fone: %s;\n", empresa.fone);
+        fprintfCrip(arquivo, "E-mail: %s;\n", empresa.email);
+        fprintfCrip(arquivo, "Logradouro: %s;\n", empresa.logradouro);
+        fprintfCrip(arquivo, "Numero: %s;\n", empresa.numero);
+        fprintfCrip(arquivo, "CEP: %s;\n", empresa.cep);
+        fprintfCrip(arquivo, "Bairro: %s;\n", empresa.bairro);
+        fprintfCrip(arquivo, "Cidade: %s;\n", empresa.cidade);
+        fprintfCrip(arquivo, "Estado: %s;\n", empresa.estado);
+        fprintfCrip(arquivo, "\n");
+        fprintfCrip(arquivo, "----------------------------------------------");
+        fprintfCrip(arquivo, "\n");
         
         fclose(arquivo);
         limparTerm();
@@ -572,10 +571,10 @@ void lerArquivo(char *Arquivo, char *textoIgnorado) {
         char linha[TAMANHO_MAX];
 
         while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-            if(strncmp(linha, textoIgnorado, 7) == 0) {
+            if(strncmp(decriptar(linha), textoIgnorado, 7) == 0) {
                 continue;
             } else {
-                printf("%s", linha);
+                printf("%s", decriptar(linha));
             }
         }
 
@@ -622,7 +621,7 @@ void excluirDados(char *Arquivo, int *quantidadeLinhas, char *referencia) {
 
         if(dadoExiste(formato, dadoInformado, arquivo)) {
             while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-                if (strstr(linha, formato) == NULL) {  // Verifica se a linha contém o dado a ser removida
+                if (strstr(decriptar(linha), formato) == NULL) {  // Verifica se a linha contém o dado a ser removida
                     fprintf(temp, "%s", linha); // Se não contém, escreve a linha no arquivo temporário
                 } else {   
                     for (int i = 0; i < quantidadeLinhas; ++i) { 
