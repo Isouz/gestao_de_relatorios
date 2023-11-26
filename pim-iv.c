@@ -33,7 +33,26 @@ struct empresas {
     char estado[21];
 };
 
-
+struct relatorios {
+    char numeroRelatorio[11];
+    char data[15];
+    char empresa[TAMANHO_MAX];
+    char cnpj[21];
+    char atividade[TAMANHO_MAX];
+    char emailEmpr[TAMANHO_MAX];
+    char foneEmpr[21];
+    char funcResponsavel[TAMANHO_MAX];
+    char emailFunc[TAMANHO_MAX];
+    char foneFunc[21];
+    char plastico[41];
+    char papel[41];
+    char vidro[41];
+    char custosTratamento[31];
+    char custosLogistica[31];
+    char custosOutros[31];
+    char cidade[51];
+    char estado[21];
+};
 /* ====== CORES ======*/
 char vermelho[8] = "\033[31m";
 char verde[8] = "\033[32m";
@@ -220,19 +239,19 @@ int dadoExiste(char *formato, char *dadoProcurado, char *Arquivo) {
 }
 
 
-void inserirDadosColab() {
+void inserirRelatorio() {
     /*
-    Usados para inserir dados no arquivo de colaboradores
+    Usados para inserir dados no arquivo de relatorios
     */
 
     limparTerm();
     
     while(1) {
         char continuar;
-        struct colabs colaborador;
+        struct relatorios relatorio;
 
         FILE *arquivo;
-        arquivo = fopen("arqUsuarios.txt", "a+");
+        arquivo = fopen("arqRelatorios.txt", "a+");
 
         printf("\n\n");
         if (arquivo == NULL) {
@@ -242,19 +261,19 @@ void inserirDadosColab() {
         }
         limparBuffer();
 
-        //solicita matricula
+        //Solicita os dados do relatorio
         while(1){
-            printf("   > Matricula: ");
-            fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
-            colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
+            printf("\n   > Numero do relatorio: ");
+            fgets(relatorio.numeroRelatorio, sizeof(relatorio.numeroRelatorio), stdin);
+            relatorio.numeroRelatorio[strcspn(relatorio.numeroRelatorio, "\n")] = '\0';
 
             char formato[TAMANHO_MAX];
-            snprintf(formato, sizeof(formato), "Matricula: %s;", colaborador.matricula);
+            snprintf(formato, sizeof(formato), "Numero do relatorio: %s;", relatorio.numeroRelatorio);
 
-            if (dadoExiste(formato, colaborador.matricula, arquivo)) {
-                printf("   %s>>> Essa matricula ja foi registrada antes! <<<.%s\n", amarelo, limparCor);
+            if (dadoExiste(formato, relatorio.numeroRelatorio, arquivo)) {
+                printf("   %s>>> Esse numero de relatorio ja foi registrada antes! <<<.%s\n", amarelo, limparCor);
                 sleep(2);
-                colaborador.matricula[0] = '\0';
+                relatorio.numeroRelatorio[0] = '\0';
                 limparTerm();
                 printf("\n\n");
             } else {
@@ -262,53 +281,116 @@ void inserirDadosColab() {
             }
         }
 
-        //solicita nome
-        printf("\n   > Nome completo: ");
-        fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
-        colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
+        printf("   > Data de elaboracao (dd/mm/aaaa): ");
+        fgets(relatorio.data, sizeof(relatorio.data), stdin);
+        relatorio.data[strcspn(relatorio.data, "\n")] = '\0';
 
-        //solicita usuario
-        while(1){
-            printf("   > Defina um usuario: ");
-            fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
-            colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
+        //Solicita dados da empresa
+        printf("   > Empresa: ");
+        fgets(relatorio.empresa, sizeof(relatorio.empresa), stdin);
+        relatorio.empresa[strcspn(relatorio.empresa, "\n")] = '\0';
 
-            char formato2[TAMANHO_MAX];
-            snprintf(formato2, sizeof(formato2), "Usuario: %s;", colaborador.usuario);
+        printf("   > CNPJ: ");
+        fgets(relatorio.cnpj, sizeof(relatorio.cnpj), stdin);
+        relatorio.cnpj[strcspn(relatorio.cnpj, "\n")] = '\0';
 
-            if (dadoExiste(formato2, colaborador.usuario, arquivo)) {
-                printf("   %s>>> Esse usuario ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
-                sleep(2);
-                colaborador.usuario[0] = '\0';
-                limparTerm();
-                printf("\n\n");
-            } else {
-                break;
-            }
-        }
+        printf("   > Atividade comercial: ");
+        fgets(relatorio.atividade, sizeof(relatorio.atividade), stdin);
+        relatorio.atividade[strcspn(relatorio.atividade, "\n")] = '\0';
 
-        //solicita senha
-        char *senha = comparaSenhas();
-        strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
+        printf("   > E-mail da empresa: ");
+        fgets(relatorio.emailEmpr, sizeof(relatorio.emailEmpr), stdin);
+        relatorio.emailEmpr[strcspn(relatorio.emailEmpr, "\n")] = '\0';
+
+        printf("   > Contato da empresa: ");
+        fgets(relatorio.foneEmpr, sizeof(relatorio.foneEmpr), stdin);
+        relatorio.foneEmpr[strcspn(relatorio.foneEmpr, "\n")] = '\0';
+
+        //Solicita dados do colaborador responsavel
+        printf("   > Responsavel pela elaboracao: ");
+        fgets(relatorio.funcResponsavel, sizeof(relatorio.funcResponsavel), stdin);
+        relatorio.funcResponsavel[strcspn(relatorio.funcResponsavel, "\n")] = '\0';
+
+        printf("   > E-mail do funcionario: ");
+        fgets(relatorio.emailFunc, sizeof(relatorio.emailFunc), stdin);
+        relatorio.emailFunc[strcspn(relatorio.emailFunc, "\n")] = '\0';
+
+        printf("   > Contato do funcionario: ");
+        fgets(relatorio.foneFunc, sizeof(relatorio.foneFunc), stdin);
+        relatorio.foneFunc[strcspn(relatorio.foneFunc, "\n")] = '\0';
+
+        //Solicita quantidade de insumos
+        printf("   > Plastico: ");
+        fgets(relatorio.plastico, sizeof(relatorio.plastico), stdin);
+        relatorio.plastico[strcspn(relatorio.plastico, "\n")] = '\0';
+
+        printf("   > Papel: ");
+        fgets(relatorio.papel, sizeof(relatorio.papel), stdin);
+        relatorio.papel[strcspn(relatorio.papel, "\n")] = '\0';
+
+        printf("   > Vidro: ");
+        fgets(relatorio.vidro, sizeof(relatorio.vidro), stdin);
+        relatorio.vidro[strcspn(relatorio.vidro, "\n")] = '\0';
+
+        //Solicita os custos
+        printf("   > Custos com tratamento: ");
+        fgets(relatorio.custosTratamento, sizeof(relatorio.custosTratamento), stdin);
+        relatorio.custosTratamento[strcspn(relatorio.custosTratamento, "\n")] = '\0';
+
+        printf("   > Custos com logistica: ");
+        fgets(relatorio.custosLogistica, sizeof(relatorio.custosLogistica), stdin);
+        relatorio.custosLogistica[strcspn(relatorio.custosLogistica, "\n")] = '\0';
+
+        printf("   > Outros custos: ");
+        fgets(relatorio.custosOutros, sizeof(relatorio.custosOutros), stdin);
+        relatorio.custosOutros[strcspn(relatorio.custosOutros, "\n")] = '\0';
+
+        //Solicita os dados da região
+        printf("   > Cidade: ");
+        fgets(relatorio.cidade, sizeof(relatorio.cidade), stdin);
+        relatorio.cidade[strcspn(relatorio.cidade, "\n")] = '\0';
+
+        printf("   > Estado: ");
+        fgets(relatorio.estado, sizeof(relatorio.estado), stdin);
+        relatorio.estado[strcspn(relatorio.estado, "\n")] = '\0';
 
         //Armazena os dados da struct no arquivo
-        fprintfCrip(arquivo, "Matricula: %s;\n", colaborador.matricula);
-        fprintfCrip(arquivo, "Nome: %s;\n", colaborador.nome);
-        fprintfCrip(arquivo, "Usuario: %s;\n", colaborador.usuario);
-        fprintfCrip(arquivo, "Senha: %s\n", colaborador.senha);
+        fprintfCrip(arquivo, "Numero do relatorio: %s;\n", relatorio.numeroRelatorio);
+        fprintfCrip(arquivo, "Data de elaboração (dd/mm/aaaa): %s;\n", relatorio.data);
         fprintfCrip(arquivo, "\n");
-        fprintfCrip(arquivo, "----------------------------------------------");
+        fprintfCrip(arquivo, "  --- DADOS DA EMPRESA ---\n");
+        fprintfCrip(arquivo, "Empresa: %s;\n", relatorio.empresa);
+        fprintfCrip(arquivo, "CNPJ: %s;\n", relatorio.cnpj);
+        fprintfCrip(arquivo, "Atividade Comercial: %s\n", relatorio.atividade);
+        fprintfCrip(arquivo, "E-mail da empresa: %s;\n", relatorio.emailEmpr);
+        fprintfCrip(arquivo, "Contato da responsavel: %s\n", relatorio.foneEmpr);
         fprintfCrip(arquivo, "\n");
-        
+        fprintfCrip(arquivo, "  --- DADOS DO FUNCIONARIO RESPONSAVEL ---\n");
+        fprintfCrip(arquivo, "Responsavel pela elaboracao: %s\n", relatorio.atividade);
+        fprintfCrip(arquivo, "E-mail do funcionario: %s;\n", relatorio.emailFunc);
+        fprintfCrip(arquivo, "Contato da funcionario: %s\n", relatorio.foneFunc);
+        fprintfCrip(arquivo, "\n");
+        fprintfCrip(arquivo, "  --- DADOS DOS ISUMOS TRATADOS ---\n");
+        fprintfCrip(arquivo, "Plastico: %s\n", relatorio.plastico);
+        fprintfCrip(arquivo, "Papel: %s;\n", relatorio.papel);
+        fprintfCrip(arquivo, "Vidro: %s\n", relatorio.vidro);
+        fprintfCrip(arquivo, "\n");
+        fprintfCrip(arquivo, "  --- DADOS DA REGIAO ---\n");
+        fprintfCrip(arquivo, "Cidade: %s\n", relatorio.cidade);
+        fprintfCrip(arquivo, "Estado: %s;\n", relatorio.estado);
+        fprintfCrip(arquivo, "\n");
+        fprintfCrip(arquivo, "==============================================================\n");
+        fprintfCrip(arquivo, "\n");
+
+        limparTerm();
         fclose(arquivo);
-        printf("\n\n   %s>>> Dados armazenados! <<<%s", verde, limparCor);
-        free(senha);
+        printf("\n\n   %s>>> Relatorio armazenado! <<<%s", verde, limparCor);
         sleep(2);
         
         //Deseja continuar?
         while (1){
             limparTerm();
-            printf("   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
+            printf("\n\n   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
             scanf("%c", &continuar);
             
             if (toupper(continuar) == 'S' || toupper(continuar) == 'N'){
@@ -471,7 +553,115 @@ void inserirDadosEmpr() {
         //Deseja continuar?
         while (1){
             limparTerm();
-            printf("   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
+            printf("\n\n   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
+            scanf("%c", &continuar);
+            
+            if (toupper(continuar) == 'S' || toupper(continuar) == 'N'){
+                limparTerm();
+                break;          
+            } else {
+                limparTerm();
+                printf("   %s>>> Opcao invalida <<<%s", vermelho, limparCor);
+                sleep(2);
+                limparBuffer();
+            }
+        }
+        if (toupper(continuar) == 'N'){
+            break;
+        }
+    }
+}
+
+
+void inserirDadosColab() {
+    /*
+    Usados para inserir dados no arquivo de colaboradores
+    */
+
+    limparTerm();
+    
+    while(1) {
+        char continuar;
+        struct colabs colaborador;
+
+        FILE *arquivo;
+        arquivo = fopen("arqUsuarios.txt", "a+");
+
+        printf("\n\n");
+        if (arquivo == NULL) {
+            printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
+            sleep(2);
+            break;
+        }
+        limparBuffer();
+
+        //solicita matricula
+        while(1){
+            printf("   > Matricula: ");
+            fgets(colaborador.matricula, sizeof(colaborador.matricula), stdin);
+            colaborador.matricula[strcspn(colaborador.matricula, "\n")] = '\0';
+
+            char formato[TAMANHO_MAX];
+            snprintf(formato, sizeof(formato), "Matricula: %s;", colaborador.matricula);
+
+            if (dadoExiste(formato, colaborador.matricula, arquivo)) {
+                printf("   %s>>> Essa matricula ja foi registrada antes! <<<.%s\n", amarelo, limparCor);
+                sleep(2);
+                colaborador.matricula[0] = '\0';
+                limparTerm();
+                printf("\n\n");
+            } else {
+                break;
+            }
+        }
+
+        //solicita nome
+        printf("   > Nome completo: ");
+        fgets(colaborador.nome, sizeof(colaborador.nome), stdin);
+        colaborador.nome[strcspn(colaborador.nome, "\n")] = '\0';
+
+        //solicita usuario
+        while(1){
+            printf("   > Defina um usuario: ");
+            fgets(colaborador.usuario, sizeof(colaborador.usuario), stdin);
+            colaborador.usuario[strcspn(colaborador.usuario, "\n")] = '\0';
+
+            char formato2[TAMANHO_MAX];
+            snprintf(formato2, sizeof(formato2), "Usuario: %s;", colaborador.usuario);
+
+            if (dadoExiste(formato2, colaborador.usuario, arquivo)) {
+                printf("   %s>>> Esse usuario ja foi registrado antes! <<<.%s\n", amarelo, limparCor);
+                sleep(2);
+                colaborador.usuario[0] = '\0';
+                limparTerm();
+                printf("\n\n");
+            } else {
+                break;
+            }
+        }
+
+        //solicita senha
+        char *senha = comparaSenhas();
+        strncpy(colaborador.senha, senha, sizeof(colaborador.senha));
+
+        //Armazena os dados da struct no arquivo
+        fprintfCrip(arquivo, "Matricula: %s;\n", colaborador.matricula);
+        fprintfCrip(arquivo, "Nome: %s;\n", colaborador.nome);
+        fprintfCrip(arquivo, "Usuario: %s;\n", colaborador.usuario);
+        fprintfCrip(arquivo, "Senha: %s\n", colaborador.senha);
+        fprintfCrip(arquivo, "\n");
+        fprintfCrip(arquivo, "----------------------------------------------");
+        fprintfCrip(arquivo, "\n");
+        
+        fclose(arquivo);
+        printf("\n\n   %s>>> Dados armazenados! <<<%s", verde, limparCor);
+        free(senha);
+        sleep(2);
+        
+        //Deseja continuar?
+        while (1){
+            limparTerm();
+            printf("\n\n   Deseja cadastrar outro usuario? \n   [S] - Sim \n   [N] - Nao\n   Sua opcao: ");
             scanf("%c", &continuar);
             
             if (toupper(continuar) == 'S' || toupper(continuar) == 'N'){
@@ -748,8 +938,7 @@ int menuRelatorios() {
             limparTerm();
             break;
         } else if (opcao == 1){  // Gerar relatorio
-            /*code*/
-            sleep(2);
+            inserirRelatorio();
         }else if (opcao == 2){  // Exibir/Baixar relatorio
             limparTerm();
             printf("\n\n");
@@ -856,7 +1045,7 @@ int menuPrincipal() {
             printf("\n\n\n");
             printf("%s   >>>  Opcao invalida, tente novamente!  <<<%s", amarelo, limparCor);
             sleep(1.5);
-            while (getchar() != '\n');  // Limpa o buffer de entrada para evitar loop infinito
+            limparBuffer();
         }
     }
 }
