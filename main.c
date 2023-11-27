@@ -55,11 +55,11 @@ struct relatorios {
 };
 
 /* ====== CORES ======*/
-char vermelho[8] = "\033[31m";
-char verde[8] = "\033[32m";
-char amarelo[8] = "\033[33m";
-char azul[8] = "\033[34m";
-char limparCor[6] = "\033[m";
+char vermelho[9] = "\033[31m";
+char verde[9] = "\033[32m";
+char amarelo[9] = "\033[33m";
+char azul[9] = "\033[34m";
+char limparCor[7] = "\033[m";
 
 
 /* ====== FERRAMENTAS ======*/
