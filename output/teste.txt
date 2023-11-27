@@ -1,0 +1,26 @@
+Numero do relatorio: r002;
+Data de elaboração (dd/mm/aaaa): 02/02/2023;
+
+  --- DADOS DA EMPRESA ---
+Empresa: Amanda e Severino Marcenaria ME;
+CNPJ: 57.876.818/0001-90;
+Atividade Comercial: Comercio independente
+E-mail da empresa: sac@amandaeseverinomarcenariame.com.br;
+Contato da responsavel: (27) 2992-2685
+
+  --- DADOS DO FUNCIONARIO RESPONSAVEL ---
+Responsavel pela elaboracao: Comercio independente
+E-mail do funcionario: douglas@mmauditoria.com;
+Contato da funcionario: 11 4554-1226
+
+  --- DADOS DOS ISUMOS TRATADOS ---
+Plastico: 1 tonelada
+Papel: 1 tonelada;
+Vidro: 1 tonelada
+
+  --- DADOS DA REGIAO ---
+Cidade: Sao Paulo
+Estado: SP;
+
+==============================================================
+

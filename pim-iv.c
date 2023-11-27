@@ -53,6 +53,7 @@ struct relatorios {
     char cidade[51];
     char estado[21];
 };
+
 /* ====== CORES ======*/
 char vermelho[8] = "\033[31m";
 char verde[8] = "\033[32m";
@@ -356,7 +357,7 @@ void inserirRelatorio() {
 
         //Armazena os dados da struct no arquivo
         fprintfCrip(arquivo, "Numero do relatorio: %s;\n", relatorio.numeroRelatorio);
-        fprintfCrip(arquivo, "Data de elaboração (dd/mm/aaaa): %s;\n", relatorio.data);
+        fprintfCrip(arquivo, "Data de elaboracao (dd/mm/aaaa): %s;\n", relatorio.data);
         fprintfCrip(arquivo, "\n");
         fprintfCrip(arquivo, "  --- DADOS DA EMPRESA ---\n");
         fprintfCrip(arquivo, "Empresa: %s;\n", relatorio.empresa);
@@ -778,13 +779,116 @@ void lerArquivo(char *Arquivo, char *textoIgnorado) {
 }
 
 
+void baixar(char *Arquivo, int *quantidadeLinhas, char *num) {
+    /*
+    Usada para baixar um arquivo. Na relidade, essa função copia determinada informação para um arquivo separado e depois o renomeia.
+    Usa três parâmetros:
+    - Arquivo: Nome do arquivo em que se encontra as informações
+    - quantidadeLinhas: quantidade de linhas que será copiada
+    - num: Numero, neste caso, numero do relatorio.
+    */
+    limparTerm();
+
+    FILE *arquivo;
+    arquivo = fopen(Arquivo, "r");
+    FILE *temp;
+    temp = fopen("temp.txt", "w");
+
+    char formato[TAMANHO_MAX];
+    snprintf(formato, sizeof(formato), "Numero do relatorio: %s;", num);
+
+    if (arquivo == NULL || temp == NULL) {
+        printf("\n\n   %s>>> Houve um erro na abertura do arquivo! <<<%s\n", vermelho, limparCor);
+        sleep(2);
+    } else {
+        char linha[TAMANHO_MAX];
+
+        while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+            if (strstr(decriptar(linha), formato) != NULL) {  // Verifica se a linha contém o dado a ser removida
+                fprintf(temp, "%s", decriptar(linha)); //Se contém, armazena as proximas linhas no arq. temp
+                for (int i = 0; i < quantidadeLinhas; ++i) {
+                    if (fgets(linha, sizeof(linha), arquivo) == NULL) {
+                        break;
+                    }
+                    fprintf(temp, "%s", decriptar(linha));
+                }
+                break;
+            }
+        }
+
+        fclose(arquivo);
+        fclose(temp);
+        
+        char nome[TAMANHO_MAX];
+        printf("\n\n   > Escolha um nome para o arquivo: ");
+        scanf("%s", &nome);
+
+        if (strstr(nome, ".txt") == NULL) {
+            strcat(nome, ".txt");
+        }
+
+        rename("temp.txt", nome);
+
+        limparTerm();
+        printf("\n\n   %s>>> Download concluido! <<<.%s\n", verde, limparCor);
+        sleep(1.5);
+    }
+}
+
+
+void lerBaixar(char *Arquivo) {
+    /*
+    Usada para exibir os relatorios na tela e também para baixar um arquivo específico.
+    Usa um parâmetro:
+    - Arquivo: nome do arquivo que será lido e que contém a informação que será baixada.
+    */
+    lerArquivo(Arquivo, "");
+
+    while (1) {
+        FILE *arquivo;
+        arquivo = fopen(Arquivo, "a+");
+
+        char num[6]; 
+        limparBuffer();
+
+        printf("\n\n  > Qual o numero do relatorio deseja baixar? [0 retorna sem baixar]: " );
+        
+        fgets(num, sizeof(num), stdin);
+        num[strcspn(num, "\n")] = '\0';
+        
+        char formatoRelat[TAMANHO_MAX];
+        snprintf(formatoRelat, sizeof(formatoRelat), "Numero do relatorio: %s;", num);
+        
+        if (strcmp(num, "0") == 0) {
+            fclose(arquivo);
+            break;
+        } else {
+            if (dadoExiste(formatoRelat, num, arquivo)) {
+                baixar("arqRelatorios.txt", 25, num);                
+                sleep(1.5);
+                fclose(arquivo);
+                break;
+            } else {
+                printf("\n\n   %s>>> Este numero de relatorio nao existe! <<<%s", amarelo, limparCor);
+                sleep(1.5);
+                num[0] = '\0';
+                formatoRelat[0] = '\0';
+                fclose(arquivo);
+                limparTerm();
+            }
+        }
+    }
+       
+}
+
+
 void excluirDados(char *Arquivo, int *quantidadeLinhas, char *referencia) {
 	/*
     Exclui dados do arquivo, utiliza três parâmetros:
 
-    - nome do arquivo; 
-    - a quantidade de linhas que será excluida; 
-    - referência ("Matricula: ", "ID: ").
+    - Arquivo: nome do arquivo com a extensão .txt; 
+    - quantidadeLinhas: a quantidade de linhas que será excluida -1; 
+    - referencia: a referência ("Matricula: ", "ID: ").
 
     Exemplo: excluirDados("arqUsuarios.txt", 5, "Matricula");
     */
@@ -940,18 +1044,9 @@ int menuRelatorios() {
         } else if (opcao == 1){  // Gerar relatorio
             inserirRelatorio();
         }else if (opcao == 2){  // Exibir/Baixar relatorio
-            limparTerm();
-            printf("\n\n");
-            /*Code*/
-            printf("   > Digite o id do relatorio para EXIBIR: ");
-            sleep(2);
+            lerBaixar("arqRelatorios.txt");
         }else if (opcao == 3){  // Excluir relatorio 
-            //====A FUNÇAO DE EXCLUSÃO VEM AQUI=====vvvv==============================
-            limparTerm();
-            printf("\n\n");
-            printf("   > Digite o id do relatorio para REMOVER: ");
-            sleep(2);
-            //====A FUNÇAO DE EXCLUSÃO VEM AQUI===^^^^================================
+            excluirDados("arqRelatorios.txt", 25, "Numero do relatorio");
         } else {
             limparTerm();
             printf("\n\n\n");
