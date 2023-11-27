@@ -1148,7 +1148,7 @@ int menuPrincipal() {
 
 /* ====== PROGRAMA ======*/
 int main() {
-    //telaLogin();
+    telaLogin();
     menuPrincipal();
 
     return 0;
