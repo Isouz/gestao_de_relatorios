@@ -2,7 +2,7 @@
 
 # Gestão de cadastro e relatórios
 
- O projeto é simples e usa uma interface intuitiva. O software é abrangente e voltado para a gestão eficiente de empresas e colaboradores, com foco especial na geração de relatórios basicos de descarte de materiais.
+ Desenvolvido usando a linguagem C, o projeto é simples e usa uma interface intuitiva. O software é abrangente e voltado para a gestão eficiente de empresas e colaboradores, com foco especial na geração de relatórios basicos de descarte de materiais.
 
  O programa também usa uma criptografia simples, então seus dados armazenados devem ser lidos através do próprio programa, com exceção dos relatórios baixados diretamente pelo sistema que já vem traduzido de forma automática.
 ##
