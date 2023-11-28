@@ -1,5 +1,3 @@
-# gestao_de_relatorios
-
 # Gestão de cadastro e relatórios
 
  Desenvolvido usando a linguagem C, o projeto é simples e usa uma interface intuitiva. O software é abrangente e voltado para a gestão eficiente de empresas e colaboradores, com foco especial na geração de relatórios basicos de descarte de materiais.
