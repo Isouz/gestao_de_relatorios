@@ -1,7 +1,11 @@
 # gestao_de_relatorios
 
- O projeto é simples e propõe o desenvolvimento de um software abrangente voltado para a gestão eficiente de empresas e colaboradores, com foco especial na geração de relatórios basicos e usando uma interface intuitiva.
+# Gestão de cadastro e relatórios
 
+ O projeto é simples e usa uma interface intuitiva. O software é abrangente e voltado para a gestão eficiente de empresas e colaboradores, com foco especial na geração de relatórios basicos de descarte de materiais.
+
+ O programa também usa uma criptografia simples, então seus dados armazenados devem ser lidos através do próprio programa, com exceção dos relatórios baixados diretamente pelo sistema que já vem traduzido de forma automática.
+##
  Inicialmente encontramos a tela de Login, onde é possivel acessar o sistema usando um nome de usuário e senha:
 
  ![image](https://github.com/Isouz/pim_iv/assets/103651578/1a1790b2-beae-465d-a288-33a817d4765e)
@@ -39,4 +43,12 @@ Neste menu, podemos cadastrar uma empresa (opção 1) consultar/listar as empres
 # Menu de Colaboradores
 
 ![image](https://github.com/Isouz/pim_iv/assets/103651578/d73244d0-38ac-427b-8ed9-2723c2f8c49f)
+
+No menu de colaboradores, fazemos a gestão dos funcionarios da empresa. Registramos sua matricula e nome completo e definimos uma senha através da opção 1. <br>
+![image](https://github.com/Isouz/pim_iv/assets/103651578/0736c20d-9b8f-4706-9aec-799102791e93)
+ <br>
+ Para definir a senha, o programa solicita que o usuario defina uma senha e depois pede a confirmação. Se as senhas estiverem iguais o fluxo do programa segue normalmente e colaborador é registrado.<br>
+ ![image](https://github.com/Isouz/pim_iv/assets/103651578/815d8813-4519-4bda-bc0b-2ab14f9814cc)
+
+
 
