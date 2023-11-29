@@ -18,7 +18,7 @@ Após a validação do login, nos deparamos com o **Menu principal**, aqui ficam
   [3] - Colaboradores<br>
   [0] - Encerrar Sessão<br>
 
-A navegação é feita usando os números 1, 2, 3 ou 4.
+A navegação é feita usando os números 1, 2, 3 ou 0.
 
 ## Menu de Relatorios
 
