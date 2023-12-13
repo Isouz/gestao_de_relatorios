@@ -31,14 +31,14 @@ Aqui encontramos as opções relacionadas aos relatorios. Através da opção 1 
 ![image](https://github.com/Isouz/pim_iv/assets/103651578/b79adadd-b2e7-42fe-b054-1189c0a36375)
 
 
-# Menu de Empresas
+## Menu de Empresas
 
 ![image](https://github.com/Isouz/pim_iv/assets/103651578/e09df3e2-71fd-448e-aa60-1a9edd5950ed)
 
 Neste menu, podemos cadastrar uma empresa (opção 1) consultar/listar as empresas já cadastradas (opção 2) ou remover uma empresa do sistema a partir de seu número ID que definimos anteriormente (opção 3). <br>
 ![image](https://github.com/Isouz/pim_iv/assets/103651578/82c436bd-3152-4390-9e96-4f958329dcb8)
 
-# Menu de Colaboradores
+## Menu de Colaboradores
 
 ![image](https://github.com/Isouz/pim_iv/assets/103651578/d73244d0-38ac-427b-8ed9-2723c2f8c49f)
 
