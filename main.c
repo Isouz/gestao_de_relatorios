@@ -91,7 +91,7 @@ void linhaVazia(char cor[8]){
 
 void fprintfCrip(FILE *stream, const char *format, ...) {
     /*
-    Função muito simular com a função fprint(). Ela imprime informações no arquivo, com a vantagem de usar uma criptografia de César com rotação de 12 caracteres.
+    Função muito similar com a função fprint(). Ela imprime informações no arquivo, com a vantagem de usar uma criptografia de César com rotação de 12 caracteres.
     */
     va_list args;
     va_start(args, format);
